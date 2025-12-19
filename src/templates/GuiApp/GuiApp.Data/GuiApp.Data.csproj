@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <Optimize>true</Optimize>
+    <Description>Data tier of application.</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\FlatColors.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include=".template.config\template.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\FlatColors.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="RunnethOverStudio.AppToolkit" Version="0.5.6" />
+  </ItemGroup>
+
+</Project>

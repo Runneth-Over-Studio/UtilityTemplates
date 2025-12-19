@@ -1,0 +1,47 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+	<PackageType>Template</PackageType>
+	<TargetFramework>net10.0</TargetFramework>
+	<ImplicitUsings>disable</ImplicitUsings>
+	<Nullable>enable</Nullable>
+	<Product>Runneth Over Studio Utility Templates</Product>
+	<Authors>Runneth Over Studio, LLC</Authors>
+	<Company>Runneth Over Studio, LLC</Company>
+	<Copyright>© Runneth Over Studio, LLC</Copyright>
+	<PackageId>RunnethOverStudio.UtilityTemplates</PackageId>
+	<PackageLicenseExpression>MIT</PackageLicenseExpression>
+	<PackageReadmeFile>readme.md</PackageReadmeFile>
+	<PackageIcon>package-icon.png</PackageIcon>
+	<PackageProjectUrl>https://github.com/Runneth-Over-Studio/UtilityTemplates</PackageProjectUrl>
+	<RepositoryUrl>https://github.com/Runneth-Over-Studio/UtilityTemplates</RepositoryUrl>
+	<PublishRepositoryUrl>true</PublishRepositoryUrl>
+	<RepositoryType>git</RepositoryType>
+	<Description>A collection of C# project templates including GUI (Avalonia) and TUI applications.</Description>
+	<PackageTags>dotnet-new;templates;avalonia;gui;tui;desktop;terminal</PackageTags>
+	<PackageVersion>0.1.0</PackageVersion>
+	<PackageReleaseNotes>In-development / pre-alpha.</PackageReleaseNotes>
+
+    <IncludeContentInPack>true</IncludeContentInPack>
+    <IncludeBuildOutput>false</IncludeBuildOutput>
+    <ContentTargetFolders>content</ContentTargetFolders>
+    <NoWarn>$(NoWarn);NU5128</NoWarn>
+    <NoDefaultExcludes>true</NoDefaultExcludes>
+	<EnableDefaultItems>false</EnableDefaultItems>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="..\GuiApp\**\*" 
+             Exclude="..\GuiApp\**\bin\**;..\GuiApp\**\obj\**;..\GuiApp\**\.vs\**;..\GuiApp\**\*.user"
+             PackagePath="content\GuiApp\" />
+    <Content Include="..\TuiApp\**\*" 
+             Exclude="..\TuiApp\**\bin\**;..\TuiApp\**\obj\**;..\TuiApp\**\.vs\**;..\TuiApp\**\*.user"
+             PackagePath="content\TuiApp\" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <None Include="..\..\..\readme.md" Pack="true" PackagePath="readme.md" />
+    <None Include="..\..\..\content\package-icon.png" Pack="true" PackagePath="package-icon.png" />
+  </ItemGroup>
+
+</Project>

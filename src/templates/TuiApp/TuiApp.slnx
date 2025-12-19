@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="TuiApp.Data/TuiApp.Data.csproj" Id="339ccb15-dd1e-48f5-8010-1704f0117b8e" />
+  <Project Path="TuiApp.Business/TuiApp.Business.csproj" Id="1e565f58-9eb3-4492-9dc5-9ba7db6a7e4f" />
+  <Project Path="TuiApp.Presentation/TuiApp.Presentation.csproj" Id="6d63817d-9c3f-4152-97e6-3732f87ae8d4" />
+</Solution>

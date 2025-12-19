@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "Runneth Over Studio, LLC",
+  "classifications": [ "Terminal", "Command", "Windows", "Linux", "macOS" ],
+  "description": "C# cross-platform TUI application.",
+  "groupidentity": "TuiApp",
+  "identity": "TuiApp",
+  "name": "TUI App",
+  "preferNameDirectory": true,
+  "shortName": "ros.tuiapp",
+  "sourceName": "TuiApp",
+  "tags": {
+    "language": "C#",
+    "type": "solution"
+  },
+  "primaryOutputs": [
+    { "path": "TuiApp.sln" },
+    { "path": "TuiApp.Data/TuiApp.Data.csproj" },
+    { "path": "TuiApp.Business/TuiApp.Business.csproj" },
+    { "path": "TuiApp.Presentation/TuiApp.Presentation.csproj" }
+  ]
+}
