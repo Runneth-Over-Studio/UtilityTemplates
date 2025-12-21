@@ -106,7 +106,7 @@ namespace GuiApp.Presentation.Base {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to https://github.com/Runneth-Over-Studio/UtilityTemplates/blob/master/privacy-policy.md.
+        ///   Looks up a localized string similar to https://runnethoverstudio.com/pages/privacy.
         /// </summary>
         internal static string PrivacyURL {
             get {
