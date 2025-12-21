@@ -31,7 +31,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include=".template.config\template.json" />
     <Content Include="Base\Assets\Attributions.txt" />
     <Content Include="Base\Assets\Fonts\akashi-font\info.txt" />
   </ItemGroup>
@@ -45,7 +44,7 @@
     <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.3.10" />
     <PackageReference Include="Deadpikle.AvaloniaProgressRing" Version="0.10.10" />
     <PackageReference Include="Material.Icons.Avalonia" Version="2.4.1" />
-    <PackageReference Include="RunnethOverStudio.AppToolkit.Desktop" Version="0.5.7" />
+    <PackageReference Include="RunnethOverStudio.AppToolkit.Desktop" Version="0.5.8" />
     <PackageReference Include="Serilog.Extensions.Logging" Version="10.0.0" />
     <PackageReference Include="Xaml.Behaviors.Avalonia" Version="11.3.9" />
   </ItemGroup>

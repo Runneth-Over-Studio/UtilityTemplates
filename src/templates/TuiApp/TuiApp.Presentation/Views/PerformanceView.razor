@@ -1,0 +1,131 @@
+@using RazorConsole.Components
+@using Spectre.Console
+
+@page "/performance"
+
+<Columns>
+    <Panel Title="CPU Performance" BorderColor="Color.Blue">
+        <Rows>
+            <Columns>
+                <Markup Content="Current:" Foreground="Color.Grey" />
+                <Markup Content="@($"{_cpuUsage}%")" Foreground="Color.Aqua" />
+            </Columns>
+            <Columns>
+                <Markup Content="Average:" Foreground="Color.Grey" />
+                <Markup Content="@($"{_cpuHistory.Average():F1}%")" Foreground="Color.Yellow" />
+            </Columns>
+            <Columns>
+                <Markup Content="Peak:" Foreground="Color.Grey" />
+                <Markup Content="@($"{_cpuHistory.Max():F1}%")" Foreground="Color.Red" />
+            </Columns>
+
+            <Newline />
+
+            <Markup Content="History (last 10 samples):" Foreground="Color.White" />
+            <Markup Content="@GetHistoryBar(_cpuHistory)" Foreground="Color.Cyan1" />
+        </Rows>
+    </Panel>
+
+    <Panel Title="Memory Performance" BorderColor="Color.Green">
+        <Rows>
+            <Columns>
+                <Markup Content="Used:" Foreground="Color.Grey" />
+                <Markup Content="@($"{_memoryUsage}%")" Foreground="Color.Lime" />
+            </Columns>
+            <Columns>
+                <Markup Content="Total:" Foreground="Color.Grey" />
+                <Markup Content="16.0 GB" Foreground="Color.Yellow" />
+            </Columns>
+            <Columns>
+                <Markup Content="Available:" Foreground="Color.Grey" />
+                <Markup Content="@($"{16.0 * (100 - _memoryUsage) / 100:F1} GB")" Foreground="Color.Green" />
+            </Columns>
+
+            <Newline />
+
+            <Markup Content="History (last 10 samples):" Foreground="Color.White" />
+            <Markup Content="@GetHistoryBar(_memoryHistory)" Foreground="Color.Green" />
+        </Rows>
+    </Panel>
+</Columns>
+
+<Newline />
+
+<Panel Title="Process Statistics" BorderColor="Color.Yellow">
+    <Rows>
+        <Columns>
+            <Markup Content="Total Processes:" Foreground="Color.Grey" />
+            <Markup Content="@_processCount.ToString()" Foreground="Color.White" />
+        </Columns>
+        <Columns>
+            <Markup Content="Threads:" Foreground="Color.Grey" />
+            <Markup Content="@_threadCount.ToString()" Foreground="Color.Cyan1" />
+        </Columns>
+        <Columns>
+            <Markup Content="Handles:" Foreground="Color.Grey" />
+            <Markup Content="@_handleCount.ToString()" Foreground="Color.Yellow" />
+        </Columns>
+    </Rows>
+</Panel>
+
+@code {
+    private double _cpuUsage = 0.0D;
+    private double _memoryUsage = 0.0D;
+
+    private int _processCount = 0;
+    private int _threadCount = 0;
+    private int _handleCount = 0;
+
+    private List<double> _cpuHistory = new() { 0.0D };
+    private List<double> _memoryHistory = new() { 0.0D };
+
+    private System.Timers.Timer? _timer;
+    private DateTime _startTime = DateTime.Now;
+
+    protected override void OnInitialized()
+    {
+        _timer = new System.Timers.Timer(1000);
+        _timer.Elapsed += (_, _) =>
+        {
+            UpdateMetrics();
+            StateHasChanged();
+        };
+        _timer.Start();
+    }
+
+    private void UpdateMetrics()
+    {
+        // CPU with smooth variation
+        _cpuUsage = Math.Max(0, Math.Min(100, _cpuUsage + Random.Shared.Next(-10, 11)));
+        _cpuHistory.Add(_cpuUsage);
+        if (_cpuHistory.Count > 10) _cpuHistory.RemoveAt(0);
+
+        // Memory with slower variation
+        _memoryUsage = Math.Max(0, Math.Min(100, _memoryUsage + Random.Shared.Next(-5, 6)));
+        _memoryHistory.Add(_memoryUsage);
+        if (_memoryHistory.Count > 10) _memoryHistory.RemoveAt(0);
+
+        // Other metrics
+        _processCount = 150 + Random.Shared.Next(-10, 11);
+        _threadCount = 2000 + Random.Shared.Next(-50, 51);
+        _handleCount = 50000 + Random.Shared.Next(-500, 501);
+    }
+
+    private string GetHistoryBar(List<double> history)
+    {
+        if (history.Count == 0) return "";
+        return string.Join(" ", history.Select(v => v switch
+        {
+            < 25 => "▁",
+            < 50 => "▃",
+            < 75 => "▅",
+            _ => "█"
+        }));
+    }
+
+    public void Dispose()
+    {
+        _timer?.Stop();
+        _timer?.Dispose();
+    }
+}

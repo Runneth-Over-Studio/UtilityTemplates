@@ -1,0 +1,118 @@
+@using RazorConsole.Components
+@using Spectre.Console
+
+@page "/network"
+
+<Columns>
+    <Panel Title="Network Traffic" BorderColor="Color.Cyan1">
+        <Rows>
+            <Columns>
+                <Markup Content="Download:" Foreground="Color.Grey" />
+                <Markup Content="@($"{_downloadSpeed:F2} MB/s")" Foreground="Color.Green" />
+            </Columns>
+            <Columns>
+                <Markup Content="Upload:" Foreground="Color.Grey" />
+                <Markup Content="@($"{_uploadSpeed:F2} MB/s")" Foreground="Color.Blue" />
+            </Columns>
+            <Columns>
+                <Markup Content="Latency:" Foreground="Color.Grey" />
+                <Markup Content="@($"{_latency} ms")" Foreground="@GetLatencyColor()" />
+            </Columns>
+
+            <Newline />
+
+            <Columns>
+                <Markup Content="Packets Sent:" Foreground="Color.Grey" />
+                <Markup Content="@_packetsSent.ToString("N0")" Foreground="Color.Yellow" />
+            </Columns>
+            <Columns>
+                <Markup Content="Packets Received:" Foreground="Color.Grey" />
+                <Markup Content="@_packetsReceived.ToString("N0")" Foreground="Color.Lime" />
+            </Columns>
+        </Rows>
+    </Panel>
+
+    <Panel Title="Active Connections" BorderColor="Color.Purple">
+        <Rows>
+            @foreach (var conn in _activeConnections)
+            {
+                <Columns>
+                    <Markup Content="@conn.Remote" Foreground="Color.White" />
+                    <Markup Content="@conn.Protocol" Foreground="Color.Aqua" />
+                    <Markup Content="@($"{conn.BytesTransferred:N0} bytes")" Foreground="Color.Yellow" />
+                </Columns>
+            }
+        </Rows>
+    </Panel>
+</Columns>
+
+@code {
+    private double _downloadSpeed;
+    private double _uploadSpeed;
+    private int _latency;
+    private int _packetsSent;
+    private int _packetsReceived;
+
+    private List<ConnectionInfo> _activeConnections = [];
+
+    private System.Timers.Timer? _timer;
+    private DateTime _startTime = DateTime.Now;
+
+    protected override void OnInitialized()
+    {
+        InitializeData();
+
+        _timer = new System.Timers.Timer(1000);
+        _timer.Elapsed += (_, _) =>
+        {
+            UpdateMetrics();
+            StateHasChanged();
+        };
+        _timer.Start();
+    }
+
+    private void InitializeData()
+    {
+        _activeConnections =
+        [
+            new() { Remote = "192.168.1.100:443", Protocol = "HTTPS", BytesTransferred = 0 },
+            new() { Remote = "10.0.0.50:3306", Protocol = "MySQL", BytesTransferred = 0 },
+            new() { Remote = "172.16.0.25:6379", Protocol = "Redis", BytesTransferred = 0 }
+        ];
+    }
+
+    private void UpdateMetrics()
+    {
+        _downloadSpeed = Random.Shared.NextDouble() * 50;
+        _uploadSpeed = Random.Shared.NextDouble() * 20;
+        _latency = 10 + Random.Shared.Next(-5, 20);
+        _packetsSent += Random.Shared.Next(100, 1000);
+        _packetsReceived += Random.Shared.Next(100, 1000);
+
+        // Update connections
+        foreach (var conn in _activeConnections)
+        {
+            conn.BytesTransferred += Random.Shared.Next(1000, 50000);
+        }
+    }
+
+    private Color GetLatencyColor()
+    {
+        if (_latency < 20) return Color.Green;
+        if (_latency < 50) return Color.Yellow;
+        return Color.Red;
+    }
+
+    public void Dispose()
+    {
+        _timer?.Stop();
+        _timer?.Dispose();
+    }
+
+    private class ConnectionInfo
+    {
+        public string Remote { get; set; } = "";
+        public string Protocol { get; set; } = "";
+        public long BytesTransferred { get; set; }
+    }
+}

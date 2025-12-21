@@ -88,7 +88,7 @@ namespace GuiApp.Presentation.Base {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to https://github.com/aaron-salisbury/ProjectTemplates/issues.
+        ///   Looks up a localized string similar to https://github.com/Runneth-Over-Studio/UtilityTemplates/issues.
         /// </summary>
         internal static string IssuesURL {
             get {
@@ -97,7 +97,7 @@ namespace GuiApp.Presentation.Base {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to https://github.com/aaron-salisbury/ProjectTemplates/blob/master/license.
+        ///   Looks up a localized string similar to https://github.com/Runneth-Over-Studio/UtilityTemplates/blob/master/license.
         /// </summary>
         internal static string LicenseURL {
             get {
@@ -106,7 +106,7 @@ namespace GuiApp.Presentation.Base {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to https://github.com/aaron-salisbury/ProjectTemplates/blob/master/privacy-policy.md.
+        ///   Looks up a localized string similar to https://github.com/Runneth-Over-Studio/UtilityTemplates/blob/master/privacy-policy.md.
         /// </summary>
         internal static string PrivacyURL {
             get {

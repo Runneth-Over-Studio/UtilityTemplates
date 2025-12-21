@@ -1,0 +1,165 @@
+@using RazorConsole.Components
+@using Spectre.Console
+
+@page "/system"
+
+<Columns>
+    <Panel Title="System Overview" BorderColor="Color.Green">
+        <Rows>
+            <Columns>
+                <Markup Content="CPU Usage:" Foreground="Color.Grey" />
+                <Markup Content="@($"{_cpuUsage}%")" Foreground="@GetMetricColor(_cpuUsage)" />
+            </Columns>
+
+            <Columns>
+                <Markup Content="Memory:" Foreground="Color.Grey" />
+                <Markup Content="@($"{_memoryUsage}%")" Foreground="@GetMetricColor(_memoryUsage)" />
+            </Columns>
+
+            <Columns>
+                <Markup Content="Disk I/O:" Foreground="Color.Grey" />
+                <Markup Content="@($"{_diskIo} MB/s")" Foreground="Color.Cyan1" />
+            </Columns>
+
+            <Newline />
+
+            <Columns>
+                <Markup Content="Temperature:" Foreground="Color.Grey" />
+                <Markup Content="@($"{_temperature}C")" Foreground="@GetTempColor()" />
+            </Columns>
+        </Rows>
+    </Panel>
+
+    <Panel Title="Active Services" BorderColor="Color.Purple">
+        <Rows>
+            @foreach (var service in _services)
+            {
+                <Columns>
+                    <Markup Content="@service.Name" Foreground="Color.White" />
+                    <Markup Content="@service.Status" Foreground="@(service.IsRunning? Color.Green: Color.Red)" />
+                </Columns>
+            }
+        </Rows>
+    </Panel>
+</Columns>
+
+<Newline />
+
+<Panel Title="Recent Events" BorderColor="Color.Orange1">
+    <Rows>
+        @foreach (var evt in _recentEvents.TakeLast(5).Reverse())
+        {
+            <Columns>
+                <Markup Content="@evt.Time" Foreground="Color.Grey" />
+                <Markup Content="@evt.Message" Foreground="@evt.Color" />
+            </Columns>
+        }
+    </Rows>
+</Panel>
+
+@code {
+    private double _cpuUsage;
+    private double _memoryUsage;
+    private double _diskIo;
+    private int _temperature;
+
+    private List<ServiceInfo> _services = [];
+    private List<EventInfo> _recentEvents = [];
+
+    private System.Timers.Timer? _timer;
+    private DateTime _startTime = DateTime.Now;
+
+    protected override void OnInitialized()
+    {
+        InitializeData();
+
+        _timer = new System.Timers.Timer(1000);
+        _timer.Elapsed += (_, _) =>
+        {
+            UpdateMetrics();
+            StateHasChanged();
+        };
+        _timer.Start();
+    }
+
+    private void InitializeData()
+    {
+        _services =
+        [
+            new() { Name = "Web Server", Status = "Running", IsRunning = true },
+            new() { Name = "Database", Status = "Running", IsRunning = true },
+            new() { Name = "Cache", Status = "Running", IsRunning = true },
+            new() { Name = "Message Queue", Status = "Running", IsRunning = true }
+        ];
+
+        _recentEvents.Add(new EventInfo
+        {
+            Time = DateTime.Now.ToString("HH:mm:ss"),
+            Message = "System started",
+            Color = Color.Green
+        });
+    }
+
+    private void UpdateMetrics()
+    {
+        _cpuUsage = Math.Max(0, Math.Min(100, _cpuUsage + Random.Shared.Next(-10, 11)));
+        _memoryUsage = Math.Max(0, Math.Min(100, _memoryUsage + Random.Shared.Next(-5, 6)));
+        _diskIo = Math.Max(0, Random.Shared.NextDouble() * 150);
+        _temperature = 45 + Random.Shared.Next(-5, 15);
+
+        // Occasionally add events
+        if (Random.Shared.Next(0, 5) == 0)
+        {
+            var events = new[]
+            {
+                ("Backup completed successfully", Color.Green),
+                ("New user logged in", Color.Cyan1),
+                ("Cache cleared", Color.Yellow),
+                ("High memory usage detected", Color.Orange1),
+                ("Network spike detected", Color.Yellow),
+            };
+            var evt = events[Random.Shared.Next(events.Length)];
+            _recentEvents.Add(new EventInfo
+            {
+                Time = DateTime.Now.ToString("HH:mm:ss"),
+                Message = evt.Item1,
+                Color = evt.Item2
+            });
+            if (_recentEvents.Count > 20) _recentEvents.RemoveAt(0);
+        }
+    }
+
+    private Color GetMetricColor(double value)
+    {
+        if (value < 50) return Color.Green;
+        if (value < 75) return Color.Yellow;
+        return Color.Red;
+    }
+
+    private Color GetTempColor()
+    {
+        if (_temperature < 60) return Color.Green;
+        if (_temperature < 75) return Color.Yellow;
+        return Color.Red;
+    }
+
+    public void Dispose()
+    {
+        _timer?.Stop();
+        _timer?.Dispose();
+    }
+
+    private class ServiceInfo
+    {
+        public string Name { get; set; } = "";
+        public string Status { get; set; } = "";
+        public bool IsRunning { get; set; }
+    }
+
+    private class EventInfo
+    {
+        public string Time { get; set; } = "";
+        public string Message { get; set; } = "";
+        public Color Color { get; set; }
+    }
+}

@@ -124,13 +124,13 @@
     <value>Name of Copyright Holder</value>
   </data>
   <data name="IssuesURL" xml:space="preserve">
-    <value>https://github.com/aaron-salisbury/ProjectTemplates/issues</value>
+    <value>https://github.com/Runneth-Over-Studio/UtilityTemplates/issues</value>
   </data>
   <data name="LicenseURL" xml:space="preserve">
-    <value>https://github.com/aaron-salisbury/ProjectTemplates/blob/master/license</value>
+    <value>https://github.com/Runneth-Over-Studio/UtilityTemplates/blob/master/license</value>
   </data>
   <data name="PrivacyURL" xml:space="preserve">
-    <value>https://github.com/aaron-salisbury/ProjectTemplates/blob/master/privacy-policy.md</value>
+    <value>https://github.com/Runneth-Over-Studio/UtilityTemplates/blob/master/privacy-policy.md</value>
   </data>
   <data name="Version" xml:space="preserve">
     <value>1.0.0</value>

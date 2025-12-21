@@ -24,7 +24,7 @@ public partial class HomeViewModel : BaseViewModel
         DesignPatternBlurb = "This solution follows a three-tier architecture, Data > Business > Presentation. " +
             "For the presentation layer, the MVVM design pattern is used. " +
             "MVVM separates views from models, which allows for projects that are cleaner, easier to extend, and testable. " +
-            "Comes configured with structured logging using Serilog, distributed messaging using MassTransit, and an embedded SQLite database using Entity Framework.";
+            "Comes configured with structured logging using Serilog and an embedded SQLite database using Dapper.";
 
         AppearanceBlurb = "Avalonia uses a Fluent Design System that emphasizes modern, clean aesthetics, smooth animations, and intuitive interactions. " +
             "It provides a consistent and polished look-and-feel across different platforms, while giving developers flexibility with its styling system.";
