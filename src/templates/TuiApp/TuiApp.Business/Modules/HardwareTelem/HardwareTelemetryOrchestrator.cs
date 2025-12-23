@@ -1,4 +1,7 @@
 ﻿using RunnethOverStudio.AppToolkit.Modules.Messaging;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 using TuiApp.Business.Modules.HardwareTelem.CPU;
 using TuiApp.Business.Modules.HardwareTelem.Jobs;
 using TuiApp.Business.Modules.Scheduling;
