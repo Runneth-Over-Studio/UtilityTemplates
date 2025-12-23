@@ -1,44 +1,30 @@
 @using RazorConsole.Components
 @using Spectre.Console
+@using TuiApp.Presentation.Base
+@using TuiApp.Presentation.ViewModels
+@inherits RazorConsoleView<HomeViewModel>
 
 @page "/"
 @page "/home"
 
 <Rows>
-    <Markup Content="@DESCRIPTION" />
+    <Markup Content="@ViewModel.Description" />
     <Newline />
 
     <Markup Content="DESIGN PATTERN" Decoration="Decoration.Bold" />
-    <Markup Content="@DESIGN_PATTERN" />
+    <Markup Content="@ViewModel.DesignPattern" />
     <Newline />
 
     <Markup Content="APPEARANCE" Decoration="Decoration.Bold" />
-    <Markup Content="@APPEARANCE" />
+    <Markup Content="@ViewModel.Appearance" />
     <Newline />
 
     <Markup Content="USE" Decoration="Decoration.Bold" />
     <Rows>
         <Columns>
             <Markup Content="Runneth Over Studio's TUI App Solution Template is released under the " />
-            <Markup Content="MIT License" Foreground="@Color.DeepSkyBlue1" Decoration="@Decoration.Underline" link="@LicenseURL" />
+            <Markup Content="MIT License" Foreground="@Color.DeepSkyBlue1" Decoration="@Decoration.Underline" link="@ViewModel.LicenseURL" />
             <Markup Content="." />
         </Columns>
     </Rows>
 </Rows>
-
-@code {
-    private const string DESCRIPTION = "This is a sample application generated from Runneth Over Studio's utility apps template.";
-
-    private const string DESIGN_PATTERN = "This solution follows a three-tier architecture, Data > Business > Presentation. " +
-        "For the presentation layer, the MVP design pattern is used. " +
-        "MVP separates views from models, which allows for projects that are cleaner, easier to extend, and testable.";
-
-    private const string APPEARANCE = "This application uses RazorConsole which leverages Spectre.Console, a .NET library that makes it easier to create beautiful console applications. " +
-        "Easily output text with different colors and even styles such as bold, italic and blinking with a Rich inspired markup language. " +
-        "Supports 3/4/8/24-bit colors in the terminal with auto-detection of the current terminal's capabilities. " +
-        "Render complex widgets such as tables, trees, and even ASCII images. " +
-        "Display progress for long running tasks with live displays of progress and status controls. " + 
-        "Format .NET exceptions with custom color coded themes and styles.";
-
-    private const string LicenseURL = "https://github.com/Runneth-Over-Studio/UtilityTemplates/blob/master/license";
-}

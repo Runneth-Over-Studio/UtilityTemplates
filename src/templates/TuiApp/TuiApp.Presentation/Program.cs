@@ -1,7 +1,11 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using CommunityToolkit.Mvvm.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using RazorConsole.Core;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace TuiApp.Presentation;
@@ -15,11 +19,11 @@ public class Program
             HostApplicationBuilder builder = Host.CreateApplicationBuilder(args);
             builder.UseRazorConsole<App>();
 
-            ConfigureServices(builder.Services);
-
+            RegisterServices(builder.Services);
             IHost host = builder.Build();
-            await host.RunAsync();
+            Ioc.Default.ConfigureServices(host.Services);
 
+            await host.RunAsync();
             return 0;
         }
         catch (Exception ex)
@@ -29,8 +33,18 @@ public class Program
         }
     }
 
-    private static void ConfigureServices(IServiceCollection services)
+    private static void RegisterServices(IServiceCollection services)
     {
         // Register application services here.
+
+        // Auto-register all ViewModels by convention
+        IEnumerable<Type> viewModelTypes = Assembly.GetExecutingAssembly()
+            .GetTypes()
+            .Where(t => t.IsClass && !t.IsAbstract && t.Name.EndsWith("ViewModel"));
+
+        foreach (Type viewModelType in viewModelTypes)
+        {
+            services.AddScoped(viewModelType);
+        }
     }
 }
