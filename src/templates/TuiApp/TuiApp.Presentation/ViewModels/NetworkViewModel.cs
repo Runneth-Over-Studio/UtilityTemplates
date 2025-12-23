@@ -1,9 +1,9 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using RunnethOverStudio.AppToolkit.Modules.ComponentModel;
 using Spectre.Console;
 using System;
 using System.Collections.ObjectModel;
 using System.Timers;
-using TuiApp.Presentation.Base;
 
 namespace TuiApp.Presentation.ViewModels;
 

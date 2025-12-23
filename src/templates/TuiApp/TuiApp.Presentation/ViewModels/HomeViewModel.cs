@@ -1,5 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using TuiApp.Presentation.Base;
+using RunnethOverStudio.AppToolkit.Modules.ComponentModel;
 
 namespace TuiApp.Presentation.ViewModels;
 

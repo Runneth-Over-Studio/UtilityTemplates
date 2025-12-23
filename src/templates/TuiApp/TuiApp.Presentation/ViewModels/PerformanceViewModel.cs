@@ -1,9 +1,9 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using RunnethOverStudio.AppToolkit.Modules.ComponentModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Timers;
-using TuiApp.Presentation.Base;
 
 namespace TuiApp.Presentation.ViewModels;
 

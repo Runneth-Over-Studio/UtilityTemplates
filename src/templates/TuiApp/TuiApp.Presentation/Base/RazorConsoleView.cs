@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using Microsoft.AspNetCore.Components;
 using System;
 using System.ComponentModel;
 
@@ -8,14 +9,14 @@ namespace TuiApp.Presentation.Base;
 /// Serves as a base class for Razor views in the MVVM pattern, providing automatic data binding.
 /// </summary>
 /// <typeparam name="TViewModel">
-/// The type of the ViewModel that this view is bound to. Must derive from <see cref="BaseViewModel"/>.
+/// The type of the ViewModel that this view is bound to. Must derive from <see cref="ObservableObject"/>.
 /// </typeparam>
 /// <remarks>
 /// This class automatically subscribes to the ViewModel's <see cref="INotifyPropertyChanged.PropertyChanged"/> 
 /// event and triggers a view refresh (<see cref="ComponentBase.StateHasChanged"/>) whenever any property changes.
 /// Views inheriting from this class should use the <see cref="ViewModel"/> property to bind to data in their markup.
 /// </remarks>
-public abstract class RazorConsoleView<TViewModel> : ComponentBase, IDisposable where TViewModel : BaseViewModel
+public abstract class RazorConsoleView<TViewModel> : ComponentBase, IDisposable where TViewModel : ObservableObject
 {
     /// <summary>
     /// Gets the ViewModel instance associated with this view.
