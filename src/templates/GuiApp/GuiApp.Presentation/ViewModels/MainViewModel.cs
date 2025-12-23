@@ -1,9 +1,9 @@
 ﻿using Avalonia.Controls;
-using GuiApp.Presentation.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.DependencyInjection;
 using CommunityToolkit.Mvvm.Input;
-using RunnethOverStudio.AppToolkit.Presentation.MVVM;
+using GuiApp.Presentation.Models;
+using RunnethOverStudio.AppToolkit.Modules.ComponentModel;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

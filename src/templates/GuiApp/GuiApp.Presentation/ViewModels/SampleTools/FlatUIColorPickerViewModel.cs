@@ -1,6 +1,6 @@
 ﻿using GuiApp.Business.Modules.Sample.ApplicationServices;
 using GuiApp.Business.Modules.Sample.DTOs;
-using RunnethOverStudio.AppToolkit.Presentation.MVVM;
+using RunnethOverStudio.AppToolkit.Modules.ComponentModel;
 using System.Collections.Generic;
 
 namespace GuiApp.Presentation.ViewModels;

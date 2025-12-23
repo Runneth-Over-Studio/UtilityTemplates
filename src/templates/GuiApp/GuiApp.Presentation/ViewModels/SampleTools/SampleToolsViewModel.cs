@@ -1,4 +1,4 @@
-﻿using RunnethOverStudio.AppToolkit.Presentation.MVVM;
+﻿using RunnethOverStudio.AppToolkit.Modules.ComponentModel;
 
 namespace GuiApp.Presentation.ViewModels;
 

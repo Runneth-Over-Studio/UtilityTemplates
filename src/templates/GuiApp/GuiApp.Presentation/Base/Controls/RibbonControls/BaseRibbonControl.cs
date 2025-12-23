@@ -3,8 +3,7 @@ using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.LogicalTree;
 using Avalonia.Styling;
-using GuiApp.Presentation.Base.Controls;
-using RunnethOverStudio.AppToolkit.Presentation.MVVM;
+using RunnethOverStudio.AppToolkit.Modules.ComponentModel;
 using System;
 using System.ComponentModel;
 

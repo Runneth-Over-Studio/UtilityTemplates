@@ -2,8 +2,8 @@
 using CommunityToolkit.Mvvm.Input;
 using GuiApp.Business.Modules.Sample.ApplicationServices;
 using GuiApp.Business.Modules.Sample.Events;
+using RunnethOverStudio.AppToolkit.Modules.ComponentModel;
 using RunnethOverStudio.AppToolkit.Modules.Messaging;
-using RunnethOverStudio.AppToolkit.Presentation.MVVM;
 using System.Threading.Tasks;
 
 namespace GuiApp.Presentation.ViewModels;

@@ -6,12 +6,11 @@
              x:Class="GuiApp.Presentation.Views.LogsView"
              xmlns:vm="clr-namespace:GuiApp.Presentation.ViewModels"
              x:DataType="vm:LogsViewModel"
-             xmlns:con="clr-namespace:GuiApp.Presentation.Base.Converters;assembly=GuiApp.Presentation"
-			 xmlns:conROS="using:RunnethOverStudio.AppToolkit.Presentation.Converters">
+             xmlns:con="clr-namespace:GuiApp.Presentation.Base.Converters;assembly=GuiApp.Presentation">
 
 	<UserControl.Resources>
 		<con:LogEventLevelToBrushConverter x:Key="logEventLevelToBrushConverter" />
-		<conROS:DateFormatConverter x:Key="dateFormatConverter" />
+		<con:DateFormatConverter x:Key="dateFormatConverter" />
 	</UserControl.Resources>
 
 	<Border>

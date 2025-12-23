@@ -1,8 +1,8 @@
-﻿using GuiApp.Presentation.Base.Services;
-using GuiApp.Presentation.Models;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using RunnethOverStudio.AppToolkit.Presentation.MVVM;
+using GuiApp.Presentation.Base.Services;
+using GuiApp.Presentation.Models;
+using RunnethOverStudio.AppToolkit.Modules.ComponentModel;
 using Serilog.Events;
 using Serilog.Sinks.MemorySink;
 using System.Collections.Generic;
