@@ -9,7 +9,7 @@ using System.Reflection;
 
 namespace GuiApp.Business;
 
-public static class Startup
+public static class DependencyInjection
 {
     /// <summary>
     /// Adds business-tier services.
@@ -20,7 +20,7 @@ public static class Startup
     {
         // Infrastructure.
         services.AddSingleton<IEventSystem, EventSystem>()
-            .AddDataAccess();
+            .AddDataAccessServices();
 
         // Internal business domain.
         services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly())

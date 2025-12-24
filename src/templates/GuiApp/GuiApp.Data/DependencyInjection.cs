@@ -5,7 +5,7 @@ using System.Net.Http;
 
 namespace GuiApp.Data;
 
-public static class Startup
+public static class DependencyInjection
 {
     /// <summary>
     /// Adds application file-system, database, and web data access services to the <see cref="IServiceCollection"/>. 
@@ -13,7 +13,7 @@ public static class Startup
     /// Also adds the <see cref="IHttpClientFactory"/> and configures a named <see cref="HttpClient"/> used for compression.
     /// </summary>
     /// <returns>A reference to this instance after the operation has completed.</returns>
-    public static IServiceCollection AddDataAccess(this IServiceCollection services)
+    public static IServiceCollection AddDataAccessServices(this IServiceCollection services)
     {
         services.AddScoped<IFileSystemAccess, FileSystemAccess>()
             .AddDatabaseAccess()
