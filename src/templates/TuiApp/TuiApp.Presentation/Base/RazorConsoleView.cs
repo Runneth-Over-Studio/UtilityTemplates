@@ -1,7 +1,9 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using Microsoft.AspNetCore.Components;
+using RunnethOverStudio.AppToolkit.Modules.ComponentModel;
 using System;
 using System.ComponentModel;
+using System.Threading.Tasks;
 
 namespace TuiApp.Presentation.Base;
 
@@ -29,14 +31,16 @@ public abstract class RazorConsoleView<TViewModel> : ComponentBase, IDisposable 
     protected TViewModel ViewModel { get; set; } = default!;
 
     /// <inheritdoc/>
-    /// <remarks>
-    /// Sets up automatic view refresh by subscribing to the ViewModel's <see cref="INotifyPropertyChanged.PropertyChanged"/> event.
-    /// </remarks>
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
-        base.OnInitialized();
+        await base.OnInitializedAsync();
 
         ViewModel.PropertyChanged += OnViewModelPropertyChanged;
+
+        if (ViewModel is BaseViewModel baseViewModel)
+        {
+            await baseViewModel.InitializeAsync();
+        }
     }
 
     /// <summary>

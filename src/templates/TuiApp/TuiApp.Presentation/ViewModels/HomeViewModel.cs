@@ -1,5 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.DependencyInjection;
 using RunnethOverStudio.AppToolkit.Modules.ComponentModel;
+using System;
+using TuiApp.Business.Modules.Scheduling;
 
 namespace TuiApp.Presentation.ViewModels;
 
@@ -18,4 +21,10 @@ public partial class HomeViewModel : BaseViewModel
 
     [ObservableProperty]
     private string _licenseURL = "https://github.com/Runneth-Over-Studio/UtilityTemplates/blob/master/license";
+
+    public HomeViewModel()
+    {
+        IRepeatingScheduler repeatingScheduler = Ioc.Default.GetRequiredService<IRepeatingScheduler>();
+        repeatingScheduler.InitiateScheduledJobsAsync(TimeSpan.FromSeconds(3), default);
+    }
 }

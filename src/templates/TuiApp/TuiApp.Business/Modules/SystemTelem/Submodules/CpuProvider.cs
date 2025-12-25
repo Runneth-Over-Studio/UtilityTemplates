@@ -2,11 +2,11 @@
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
-using TuiApp.Business.Modules.DTOs;
+using TuiApp.Business.Modules.SystemTelem.DTOs;
 
-namespace TuiApp.Business.Modules.HardwareTelem.CPU;
+namespace TuiApp.Business.Modules.SystemTelem.Submodules;
 
-public sealed class CpuTelemetryReader : ICpuTelemetryReader
+public sealed class CpuProvider : ICpuProvider
 {
     private readonly Process _process;
     private readonly int _logicalCores;
@@ -14,27 +14,32 @@ public sealed class CpuTelemetryReader : ICpuTelemetryReader
     private DateTimeOffset? _lastWallTime;
     private TimeSpan? _lastCpuTime;
 
-    public CpuTelemetryReader()
+    public CpuProvider()
     {
         _process = Process.GetCurrentProcess();
         _logicalCores = Math.Max(1, Environment.ProcessorCount);
     }
 
-    public Task<CpuTelemetrySampleEventArgs> ReadAsync(CancellationToken cancellationToken = default)
+    public int GetLogicalCoreCount()
+    {
+        return _logicalCores;
+    }
+
+    public Task<CpuSample> SampleCPUAsync(CancellationToken cancellationToken = default)
     {
         cancellationToken.ThrowIfCancellationRequested();
 
         _process.Refresh();
 
-        var now = DateTimeOffset.Now;
-        var cpu = _process.TotalProcessorTime;
+        DateTimeOffset now = DateTimeOffset.Now;
+        TimeSpan cpu = _process.TotalProcessorTime;
 
         double percent = 0;
 
         if (_lastWallTime is not null && _lastCpuTime is not null)
         {
-            var wallDelta = (now - _lastWallTime.Value).TotalMilliseconds;
-            var cpuDelta = (cpu - _lastCpuTime.Value).TotalMilliseconds;
+            double wallDelta = (now - _lastWallTime.Value).TotalMilliseconds;
+            double cpuDelta = (cpu - _lastCpuTime.Value).TotalMilliseconds;
 
             if (wallDelta > 0)
             {
@@ -50,12 +55,11 @@ public sealed class CpuTelemetryReader : ICpuTelemetryReader
         _lastWallTime = now;
         _lastCpuTime = cpu;
 
-        var sample = new CpuTelemetrySampleEventArgs()
+        CpuSample sample = new CpuSample()
         {
             CapturedAt = now,
             ProcessCpuPercent = percent,
-            TotalProcessorTime = cpu,
-            LogicalCores = _logicalCores
+            TotalProcessorTime = cpu
         };
 
         return Task.FromResult(sample);

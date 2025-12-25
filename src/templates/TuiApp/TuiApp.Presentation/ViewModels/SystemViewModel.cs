@@ -3,7 +3,10 @@ using RunnethOverStudio.AppToolkit.Modules.ComponentModel;
 using Spectre.Console;
 using System;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using System.Timers;
+using TuiApp.Business.Modules.SystemTelem;
+using TuiApp.Business.Modules.SystemTelem.DTOs;
 
 namespace TuiApp.Presentation.ViewModels;
 
@@ -27,12 +30,16 @@ public partial class SystemViewModel : BaseViewModel, IDisposable
     [ObservableProperty]
     private ObservableCollection<EventInfo> _recentEvents = [];
 
-    private System.Timers.Timer? _timer;
+    private readonly ISystemTelemGatherer _systemTelemGatherer;
+    private Timer? _timer;
 
-    public SystemViewModel()
+    public SystemViewModel(ISystemTelemGatherer systemTelemGatherer)
     {
+        _systemTelemGatherer = systemTelemGatherer;
+        
+
         InitializeData();
-        StartMonitoring();
+        
     }
 
     private void InitializeData()
@@ -53,9 +60,16 @@ public partial class SystemViewModel : BaseViewModel, IDisposable
         });
     }
 
+    public override async Task InitializeAsync()
+    {
+        SystemSnapshot systemSnapshot = await _systemTelemGatherer.GatherSnapshotAsync();
+
+        StartMonitoring();
+    }
+
     private void StartMonitoring()
     {
-        _timer = new System.Timers.Timer(1000);
+        _timer = new Timer(1000);
         _timer.Elapsed += OnTimerElapsed;
         _timer.Start();
     }
@@ -112,6 +126,8 @@ public partial class SystemViewModel : BaseViewModel, IDisposable
     {
         _timer?.Stop();
         _timer?.Dispose();
+
+        GC.SuppressFinalize(this);
     }
 
     public class ServiceInfo

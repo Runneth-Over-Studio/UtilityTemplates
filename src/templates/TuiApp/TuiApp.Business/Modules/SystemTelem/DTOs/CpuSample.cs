@@ -1,11 +1,10 @@
 ﻿using System;
 
-namespace TuiApp.Business.Modules.DTOs;
+namespace TuiApp.Business.Modules.SystemTelem.DTOs;
 
-public sealed class CpuTelemetrySampleEventArgs() : EventArgs
+public sealed record CpuSample()
 {
     public DateTimeOffset CapturedAt { get; init; }
     public double ProcessCpuPercent { get; init; }
     public TimeSpan TotalProcessorTime { get; init; }
-    public int LogicalCores { get; init; }
 }

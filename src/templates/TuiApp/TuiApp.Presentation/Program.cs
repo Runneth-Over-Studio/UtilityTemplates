@@ -35,7 +35,7 @@ public class Program
 
     private static void RegisterServices(IServiceCollection services)
     {
-        // Register application services here.
+        Business.DependencyInjection.AddBusinessServices(services);
 
         // Auto-register all ViewModels by convention
         IEnumerable<Type> viewModelTypes = Assembly.GetExecutingAssembly()

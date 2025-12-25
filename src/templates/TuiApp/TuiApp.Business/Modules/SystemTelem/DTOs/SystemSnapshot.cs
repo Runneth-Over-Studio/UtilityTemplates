@@ -1,13 +1,15 @@
 ﻿using System;
 
-namespace TuiApp.Business.Modules.DTOs;
+namespace TuiApp.Business.Modules.SystemTelem.DTOs;
 
 public sealed record SystemSnapshot(
     DateTimeOffset CapturedAt,
     OsInfo Os,
     DotNetInfo DotNet,
     ProcessInfo Process,
-    MachineInfo Machine
+    MachineInfo Machine,
+    (long? TotalBytes, long? AvailableBytes) PhysicalMemory,
+    int LogicalCores
 );
 
 public sealed record OsInfo(

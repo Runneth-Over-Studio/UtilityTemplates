@@ -1,11 +1,22 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
+using System.Threading;
+using System.Threading.Tasks;
+using TuiApp.Business.Modules.SystemTelem.DTOs;
 
-namespace TuiApp.Business.Modules.HardwareTelem.Memory;
+namespace TuiApp.Business.Modules.SystemTelem.Submodules;
 
-public sealed class SystemMemoryProvider : ISystemMemoryProvider
+public sealed class MemoryProvider : IMemoryProvider
 {
+    private readonly Process _process;
+
+    public MemoryProvider()
+    {
+        _process = Process.GetCurrentProcess();
+    }
+
     public (long? TotalBytes, long? AvailableBytes) TryGetPhysicalMemory()
     {
         try
@@ -25,6 +36,22 @@ public sealed class SystemMemoryProvider : ISystemMemoryProvider
         }
 
         return (null, null);
+    }
+
+    public Task<MemorySample> SampleMemoryAsync(CancellationToken cancellationToken = default)
+    {
+        cancellationToken.ThrowIfCancellationRequested();
+
+        _process.Refresh();
+
+        var sample = new MemorySample()
+        {
+            CapturedAt = DateTimeOffset.Now,
+            ProcessWorkingSetBytes = _process.WorkingSet64,
+            ProcessPrivateBytes = _process.PrivateMemorySize64
+        };
+
+        return Task.FromResult(sample);
     }
 
     // ---------- Windows ----------
