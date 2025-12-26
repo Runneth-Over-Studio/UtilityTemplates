@@ -1,6 +1,4 @@
-<p align="left">
-  <img src="https://raw.githubusercontent.com/Runneth-Over-Studio/UtilityTemplates/refs/heads/main/content/logo.png" width="175" alt="App Toolkit Logo">
-</p>
+![UtilityTemplates Logo](https://raw.githubusercontent.com/Runneth-Over-Studio/UtilityTemplates/refs/heads/main/content/icon-175.png)
 
 # UtilityTemplates
 Runneth Over Studio's .NET project templates (GUI / TUI) for in-house utilities.
