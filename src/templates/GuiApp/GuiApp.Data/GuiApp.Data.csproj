@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="RunnethOverStudio.AppToolkit" Version="1.0.0" />
+    <PackageReference Include="RunnethOverStudio.AppToolkit" Version="1.0.2" />
   </ItemGroup>
 
 </Project>
