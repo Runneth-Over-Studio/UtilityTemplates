@@ -11,40 +11,37 @@
         <Rows>
             <Columns>
                 <Markup Content="Download:" Foreground="Color.Grey" />
-                <Markup Content="@($"{ViewModel.DownloadSpeed:F2} MB/s")" Foreground="Color.Green" />
+                <Markup Content="@($"{ViewModel.DownloadSpeedMB:F2} MB/s")" Foreground="Color.Green" />
             </Columns>
             <Columns>
                 <Markup Content="Upload:" Foreground="Color.Grey" />
-                <Markup Content="@($"{ViewModel.UploadSpeed:F2} MB/s")" Foreground="Color.Blue" />
+                <Markup Content="@($"{ViewModel.UploadSpeedMB:F2} MB/s")" Foreground="Color.Blue" />
             </Columns>
             <Columns>
                 <Markup Content="Latency:" Foreground="Color.Grey" />
-                <Markup Content="@($"{ViewModel.Latency} ms")" Foreground="@ViewModel.GetLatencyColor()" />
-            </Columns>
-
-            <Newline />
-
-            <Columns>
-                <Markup Content="Packets Sent:" Foreground="Color.Grey" />
-                <Markup Content="@ViewModel.PacketsSent.ToString("N0")" Foreground="Color.Yellow" />
-            </Columns>
-            <Columns>
-                <Markup Content="Packets Received:" Foreground="Color.Grey" />
-                <Markup Content="@ViewModel.PacketsReceived.ToString("N0")" Foreground="Color.Lime" />
+                <Markup Content="@($"{ViewModel.Latency} ms")" Foreground="@GetLatencyColor(ViewModel.Latency)" />
             </Columns>
         </Rows>
     </Panel>
 
-    <Panel Title="Active Connections" BorderColor="Color.Purple">
+    <Panel Title="Active TCP Connections" BorderColor="Color.Purple">
         <Rows>
-            @foreach (var conn in ViewModel.ActiveConnections)
+            @foreach (var conn in ViewModel.ActiveTCPConnections)
             {
                 <Columns>
                     <Markup Content="@conn.Remote" Foreground="Color.White" />
-                    <Markup Content="@conn.Protocol" Foreground="Color.Aqua" />
-                    <Markup Content="@($"{conn.BytesTransferred:N0} bytes")" Foreground="Color.Yellow" />
+                    <Markup Content="@conn.State" Foreground="Color.Aqua" />
                 </Columns>
             }
         </Rows>
     </Panel>
 </Columns>
+
+@code {
+    private Color GetLatencyColor(int latency)
+    {
+        if (latency < 20) return Color.Green;
+        if (latency < 50) return Color.Yellow;
+        return Color.Red;
+    }
+}

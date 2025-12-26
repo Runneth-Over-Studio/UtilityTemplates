@@ -1,94 +1,48 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using RunnethOverStudio.AppToolkit.Modules.ComponentModel;
+using RunnethOverStudio.AppToolkit.Modules.Messaging;
 using Spectre.Console;
-using System;
 using System.Collections.ObjectModel;
-using System.Timers;
+using System.Linq;
+using TuiApp.Business.Modules.SystemTelem.Messages;
+using TuiApp.Presentation.Models;
 
 namespace TuiApp.Presentation.ViewModels;
 
-public partial class NetworkViewModel : BaseViewModel, IDisposable
+public partial class NetworkViewModel : BaseViewModel
 {
-    [ObservableProperty]
-    private double _downloadSpeed;
+    private const long BYTES_PER_MB = 1024L * 1024L;
 
     [ObservableProperty]
-    private double _uploadSpeed;
+    private double _downloadSpeedMB;
+
+    [ObservableProperty]
+    private double _uploadSpeedMB;
 
     [ObservableProperty]
     private int _latency;
 
     [ObservableProperty]
-    private int _packetsSent;
+    private ObservableCollection<ConnectionInfo> _activeTCPConnections = [];
 
-    [ObservableProperty]
-    private int _packetsReceived;
-
-    [ObservableProperty]
-    private ObservableCollection<ConnectionInfo> _activeConnections = [];
-
-    private System.Timers.Timer? _timer;
-
-    public NetworkViewModel()
+    public NetworkViewModel(IEventSystem eventSystem)
     {
-        InitializeData();
-        StartMonitoring();
+        eventSystem.Subscribe<SystemResourceSampleEventArgs>(OnSystemSampled);
     }
 
-    private void InitializeData()
+    private void OnSystemSampled(object? sender, SystemResourceSampleEventArgs e)
     {
-        ActiveConnections =
-        [
-            new() { Remote = "192.168.1.100:443", Protocol = "HTTPS", BytesTransferred = 0 },
-            new() { Remote = "10.0.0.50:3306", Protocol = "MySQL", BytesTransferred = 0 },
-            new() { Remote = "172.16.0.25:6379", Protocol = "Redis", BytesTransferred = 0 }
-        ];
-    }
+        UploadSpeedMB = e.NetworkBytesSentPerSecond / (double)BYTES_PER_MB;
+        DownloadSpeedMB = e.NetworkBytesReceivedPerSecond / (double)BYTES_PER_MB;
+        Latency = (int)e.NetworkLatencyMilliseconds;
 
-    private void StartMonitoring()
-    {
-        _timer = new System.Timers.Timer(1000);
-        _timer.Elapsed += OnTimerElapsed;
-        _timer.Start();
-    }
-
-    private void OnTimerElapsed(object? sender, ElapsedEventArgs e)
-    {
-        UpdateMetrics();
-    }
-
-    private void UpdateMetrics()
-    {
-        DownloadSpeed = Random.Shared.NextDouble() * 50;
-        UploadSpeed = Random.Shared.NextDouble() * 20;
-        Latency = 10 + Random.Shared.Next(-5, 20);
-        PacketsSent += Random.Shared.Next(100, 1000);
-        PacketsReceived += Random.Shared.Next(100, 1000);
-
-        // Update connections
-        foreach (var conn in ActiveConnections)
-        {
-            conn.BytesTransferred += Random.Shared.Next(1000, 50000);
-        }
-    }
-
-    public Color GetLatencyColor()
-    {
-        if (Latency < 20) return Color.Green;
-        if (Latency < 50) return Color.Yellow;
-        return Color.Red;
-    }
-
-    public void Dispose()
-    {
-        _timer?.Stop();
-        _timer?.Dispose();
-    }
-
-    public class ConnectionInfo
-    {
-        public string Remote { get; set; } = "";
-        public string Protocol { get; set; } = "";
-        public long BytesTransferred { get; set; }
+        ActiveTCPConnections = new ObservableCollection<ConnectionInfo>(e.ActiveConnections
+            .Where(ac => string.Equals("TCP", ac.Protocol))
+            .Take(5)
+            .Select(ac => new ConnectionInfo()
+            {
+                Remote = ac.RemoteEndPoint,
+                State = ac.State
+            }));
     }
 }

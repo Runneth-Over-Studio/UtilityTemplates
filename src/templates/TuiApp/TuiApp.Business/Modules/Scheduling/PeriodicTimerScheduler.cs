@@ -30,9 +30,9 @@ public sealed class PeriodicTimerScheduler : IRepeatingScheduler
     /// This constructor creates and configures the internal <see cref="ScheduledJobOrchestrator"/>
     /// with the provided dependencies, which will manage the execution of scheduled jobs.
     /// </remarks>
-    public PeriodicTimerScheduler(IEventSystem bus, ICpuProvider cpuProvider, IMemoryProvider memoryProvider)
+    public PeriodicTimerScheduler(IEventSystem bus, ICpuProvider cpuProvider, IMemoryProvider memoryProvider, INetworkProvider networkProvider)
     {
-        _scheduledJobOrchestrator = new ScheduledJobOrchestrator(this, bus, cpuProvider, memoryProvider);
+        _scheduledJobOrchestrator = new ScheduledJobOrchestrator(this, bus, cpuProvider, memoryProvider, networkProvider);
     }
 
     /// <inheritdoc/>

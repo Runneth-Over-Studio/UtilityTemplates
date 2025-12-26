@@ -1,4 +1,4 @@
-@using RazorConsole.Components
+﻿@using RazorConsole.Components
 @using Spectre.Console
 @using TuiApp.Presentation.Base
 @using TuiApp.Presentation.ViewModels
@@ -11,21 +11,21 @@
         <Rows>
             <Columns>
                 <Markup Content="Current:" Foreground="Color.Grey" />
-                <Markup Content="@($"{ViewModel.CpuUsage}%")" Foreground="Color.Aqua" />
+                <Markup Content="@($"{ViewModel.CpuUsagePercent:F2}%")" Foreground="Color.Aqua" />
             </Columns>
             <Columns>
                 <Markup Content="Average:" Foreground="Color.Grey" />
-                <Markup Content="@($"{ViewModel.CpuHistory.Average():F1}%")" Foreground="Color.Yellow" />
+                <Markup Content="@($"{SafeAverage(ViewModel.CpuHistory):F1}%")" Foreground="Color.Yellow" />
             </Columns>
             <Columns>
                 <Markup Content="Peak:" Foreground="Color.Grey" />
-                <Markup Content="@($"{ViewModel.CpuHistory.Max():F1}%")" Foreground="Color.Red" />
+                <Markup Content="@($"{SafeMax(ViewModel.CpuHistory):F1}%")" Foreground="Color.Red" />
             </Columns>
 
             <Newline />
 
             <Markup Content="History (last 10 samples):" Foreground="Color.White" />
-            <Markup Content="@ViewModel.GetHistoryBar(ViewModel.CpuHistory)" Foreground="Color.Cyan1" />
+            <Markup Content="@GetHistoryBar(ViewModel.CpuHistory)" Foreground="Color.Cyan1" />
         </Rows>
     </Panel>
 
@@ -33,21 +33,21 @@
         <Rows>
             <Columns>
                 <Markup Content="Used:" Foreground="Color.Grey" />
-                <Markup Content="@($"{ViewModel.MemoryUsage}%")" Foreground="Color.Lime" />
+                <Markup Content="@($"{ViewModel.MemoryUsagePercent:F2}%")" Foreground="Color.Lime" />
             </Columns>
             <Columns>
                 <Markup Content="Total:" Foreground="Color.Grey" />
-                <Markup Content="16.0 GB" Foreground="Color.Yellow" />
+                <Markup Content="@($"{ViewModel.MemoryTotalGB:F1} GB")" Foreground="Color.Yellow" />
             </Columns>
             <Columns>
                 <Markup Content="Available:" Foreground="Color.Grey" />
-                <Markup Content="@($"{16.0 * (100 - ViewModel.MemoryUsage) / 100:F1} GB")" Foreground="Color.Green" />
+                <Markup Content="@($"{ViewModel.MemoryAvailableGB:F1} GB")" Foreground="Color.Green" />
             </Columns>
 
             <Newline />
 
             <Markup Content="History (last 10 samples):" Foreground="Color.White" />
-            <Markup Content="@ViewModel.GetHistoryBar(ViewModel.MemoryHistory)" Foreground="Color.Green" />
+            <Markup Content="@GetHistoryBar(ViewModel.MemoryHistory)" Foreground="Color.Green" />
         </Rows>
     </Panel>
 </Columns>
@@ -70,3 +70,27 @@
         </Columns>
     </Rows>
 </Panel>
+
+@code {
+    private double SafeAverage(List<double> history)
+    {
+        return history.Count > 0 ? history.Average() : 0;
+    }
+
+    private double SafeMax(List<double> history)
+    {
+        return history.Count > 0 ? history.Max() : 0;
+    }
+
+    private string GetHistoryBar(List<double> history)
+    {
+        if (history.Count == 0) return "";
+        return string.Join(" ", history.Select(p => p switch
+        {
+            < 25 => "▁",
+            < 50 => "▃",
+            < 75 => "▅",
+            _ => "█"
+        }));
+    }
+}

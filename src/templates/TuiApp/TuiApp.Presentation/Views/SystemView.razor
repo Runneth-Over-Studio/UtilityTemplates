@@ -10,52 +10,24 @@
     <Panel Title="System Overview" BorderColor="Color.Green">
         <Rows>
             <Columns>
-                <Markup Content="CPU Usage:" Foreground="Color.Grey" />
-                <Markup Content="@($"{ViewModel.CpuUsage}%")" Foreground="@ViewModel.GetMetricColor(ViewModel.CpuUsage)" />
+                <Markup Content="Machine Name:" Foreground="Color.Grey" />
+                <Markup Content="@($"{ViewModel.MachineName}")" Foreground="Color.SteelBlue" />
             </Columns>
 
             <Columns>
-                <Markup Content="Memory:" Foreground="Color.Grey" />
-                <Markup Content="@($"{ViewModel.MemoryUsage}%")" Foreground="@ViewModel.GetMetricColor(ViewModel.MemoryUsage)" />
+                <Markup Content="Operating System:" Foreground="Color.Grey" />
+                <Markup Content="@($"{ViewModel.OsDescription}")" Foreground="Color.SteelBlue" />
             </Columns>
 
             <Columns>
-                <Markup Content="Disk I/O:" Foreground="Color.Grey" />
-                <Markup Content="@($"{ViewModel.DiskIo} MB/s")" Foreground="Color.Cyan1" />
+                <Markup Content="Logical Cores:" Foreground="Color.Grey" />
+                <Markup Content="@($"{ViewModel.LogicalCores}")" Foreground="Color.Aquamarine1" />
             </Columns>
-
-            <Newline />
 
             <Columns>
-                <Markup Content="Temperature:" Foreground="Color.Grey" />
-                <Markup Content="@($"{ViewModel.Temperature}C")" Foreground="@ViewModel.GetTempColor()" />
+                <Markup Content="RAM:" Foreground="Color.Grey" />
+                <Markup Content="@($"{ViewModel.TotalMemoryGB} GB")" Foreground="Color.Cyan1" />
             </Columns>
-        </Rows>
-    </Panel>
-
-    <Panel Title="Active Services" BorderColor="Color.Purple">
-        <Rows>
-            @foreach (var service in ViewModel.Services)
-            {
-                <Columns>
-                    <Markup Content="@service.Name" Foreground="Color.White" />
-                    <Markup Content="@service.Status" Foreground="@(service.IsRunning? Color.Green: Color.Red)" />
-                </Columns>
-            }
         </Rows>
     </Panel>
 </Columns>
-
-<Newline />
-
-<Panel Title="Recent Events" BorderColor="Color.Orange1">
-    <Rows>
-        @foreach (var evt in ViewModel.RecentEvents.TakeLast(5).Reverse())
-        {
-            <Columns>
-                <Markup Content="@evt.Time" Foreground="Color.Grey" />
-                <Markup Content="@evt.Message" Foreground="@evt.Color" />
-            </Columns>
-        }
-    </Rows>
-</Panel>

@@ -1,19 +1,29 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using RunnethOverStudio.AppToolkit.Modules.ComponentModel;
-using System;
+using RunnethOverStudio.AppToolkit.Modules.Messaging;
 using System.Collections.Generic;
-using System.Linq;
-using System.Timers;
+using System.Threading.Tasks;
+using TuiApp.Business.Modules.SystemTelem;
+using TuiApp.Business.Modules.SystemTelem.DTOs;
+using TuiApp.Business.Modules.SystemTelem.Messages;
 
 namespace TuiApp.Presentation.ViewModels;
 
-public partial class PerformanceViewModel : BaseViewModel, IDisposable
+public partial class PerformanceViewModel : BaseViewModel
 {
-    [ObservableProperty]
-    private double _cpuUsage = 0.0D;
+    private const long BYTES_PER_GB = 1024L * 1024L * 1024L;
 
     [ObservableProperty]
-    private double _memoryUsage = 0.0D;
+    private double _cpuUsagePercent = 0.0D;
+
+    [ObservableProperty]
+    private double _memoryUsagePercent = 0.0D;
+
+    [ObservableProperty]
+    private double _memoryTotalGB = 0.0D;
+
+    [ObservableProperty]
+    private double _memoryAvailableGB = 0.0D;
 
     [ObservableProperty]
     private int _processCount = 0;
@@ -25,63 +35,54 @@ public partial class PerformanceViewModel : BaseViewModel, IDisposable
     private int _handleCount = 0;
 
     [ObservableProperty]
-    private List<double> _cpuHistory = [0.0D];
+    private List<double> _cpuHistory = [];
 
     [ObservableProperty]
-    private List<double> _memoryHistory = [0.0D];
+    private List<double> _memoryHistory = [];
 
-    private System.Timers.Timer? _timer;
+    private readonly ISystemTelemGatherer _systemTelemGatherer;
+    private long _totalMemoryBytes = 0;
 
-    public PerformanceViewModel()
+    public PerformanceViewModel(IEventSystem eventSystem, ISystemTelemGatherer systemTelemGatherer)
     {
-        StartMonitoring();
+        _systemTelemGatherer = systemTelemGatherer;
+
+        eventSystem.Subscribe<SystemResourceSampleEventArgs>(OnSystemSampled);
     }
 
-    private void StartMonitoring()
+    public override async Task InitializeAsync()
     {
-        _timer = new System.Timers.Timer(1000);
-        _timer.Elapsed += OnTimerElapsed;
-        _timer.Start();
+        SystemSnapshot systemSnapshot = await _systemTelemGatherer.GatherSnapshotAsync();
+        _totalMemoryBytes = systemSnapshot.PhysicalMemory.TotalBytes ?? 0;
+        MemoryTotalGB = _totalMemoryBytes / (double)BYTES_PER_GB;
     }
 
-    private void OnTimerElapsed(object? sender, ElapsedEventArgs e)
+    private void OnSystemSampled(object? sender, SystemResourceSampleEventArgs e)
     {
-        UpdateMetrics();
-    }
+        CpuUsagePercent = e.SystemCpuPercent;
 
-    private void UpdateMetrics()
-    {
-        // CPU with smooth variation
-        CpuUsage = Math.Max(0, Math.Min(100, CpuUsage + Random.Shared.Next(-10, 11)));
-        CpuHistory.Add(CpuUsage);
-        if (CpuHistory.Count > 10) CpuHistory.RemoveAt(0);
+        MemoryUsagePercent = _totalMemoryBytes > 0 ? (e.MemoryUsedInBytes / (double)_totalMemoryBytes) * 100.0 : 0;
+        MemoryAvailableGB = (_totalMemoryBytes - e.MemoryUsedInBytes) / (double)BYTES_PER_GB;
 
-        // Memory with slower variation
-        MemoryUsage = Math.Max(0, Math.Min(100, MemoryUsage + Random.Shared.Next(-5, 6)));
-        MemoryHistory.Add(MemoryUsage);
-        if (MemoryHistory.Count > 10) MemoryHistory.RemoveAt(0);
+        ProcessCount = e.TotalProcesses;
+        ThreadCount = e.TotalThreads;
+        HandleCount = e.TotalHandles;
 
-        // Other metrics
-        ProcessCount = 150 + Random.Shared.Next(-10, 11);
-        ThreadCount = 2000 + Random.Shared.Next(-50, 51);
-        HandleCount = 50000 + Random.Shared.Next(-500, 501);
-    }
-
-    public string GetHistoryBar(List<double> history)
-    {
-        if (history.Count == 0) return "";
-        return string.Join(" ", history.Select(v => v switch
+        // Update history collections (thread-safe on regular List)
+        lock (CpuHistory)
         {
-            < 25 => "▁",
-            < 50 => "▃",
-            < 75 => "▅",
-            _ => "█"
-        }));
-    }
+            CpuHistory.Add(CpuUsagePercent);
+            if (CpuHistory.Count > 10) CpuHistory.RemoveAt(0);
+        }
 
-    public void Dispose()
-    {
-        _timer?.Stop();
-        _timer?.Dispose();
+        lock (MemoryHistory)
+        {
+            MemoryHistory.Add(MemoryUsagePercent);
+            if (MemoryHistory.Count > 10) MemoryHistory.RemoveAt(0);
+        }
+
+        // Notify view to refresh
+        OnPropertyChanged(nameof(CpuHistory));
+        OnPropertyChanged(nameof(MemoryHistory));
     }
 }

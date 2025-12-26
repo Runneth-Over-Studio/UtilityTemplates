@@ -21,14 +21,10 @@ public sealed class ScheduledJobOrchestrator
     /// <summary>
     /// Initializes a new instance of the <see cref="ScheduledJobOrchestrator"/> class.
     /// </summary>
-    /// <param name="scheduler">The scheduler responsible for running jobs at regular intervals.</param>
-    /// <param name="bus">The event system used to publish messages.</param>
-    /// <param name="cpuProvider">The provider for CPU telemetry samples.</param>
-    /// <param name="memoryProvider">The provider for memory telemetry samples.</param>
-    public ScheduledJobOrchestrator(IRepeatingScheduler scheduler, IEventSystem bus, ICpuProvider cpuProvider, IMemoryProvider memoryProvider)
+    public ScheduledJobOrchestrator(IRepeatingScheduler scheduler, IEventSystem bus, ICpuProvider cpuProvider, IMemoryProvider memoryProvider, INetworkProvider networkProvider)
     {
         _scheduler = scheduler;
-        _sampleSystemResourcesJob = new SampleSystemResourcesJob(bus, cpuProvider, memoryProvider);
+        _sampleSystemResourcesJob = new SampleSystemResourcesJob(bus, cpuProvider, memoryProvider, networkProvider);
     }
 
     /// <summary>
