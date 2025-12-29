@@ -5,7 +5,7 @@
   "description": "C# cross-platform TUI application.",
   "groupidentity": "TuiApp",
   "identity": "TuiApp",
-  "name": "TUI App",
+  "name": "TUI App (RazorConsole)",
   "preferNameDirectory": true,
   "shortName": "ros.tuiapp",
   "sourceName": "TuiApp",
