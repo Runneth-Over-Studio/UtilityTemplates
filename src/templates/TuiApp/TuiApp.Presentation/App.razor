@@ -3,11 +3,9 @@
 @using RazorConsole.Components
 @inject NavigationManager Nav
 
-@namespace TuiApp.Presentation
-
 <Router AppAssembly="@typeof(App).Assembly">
     <Found Context="RouteContext">
-        <RouteView RouteData="RouteContext" DefaultLayout="typeof(MainLayout)" />
+        <RouteView RouteData="RouteContext" DefaultLayout="@typeof(MainLayout)" />
     </Found>
     <NotFound>
         <Markup Content="How did you even get there?" />
