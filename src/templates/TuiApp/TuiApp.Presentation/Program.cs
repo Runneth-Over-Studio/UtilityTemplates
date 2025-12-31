@@ -12,8 +12,10 @@ namespace TuiApp.Presentation;
 
 public class Program
 {
-    public static async Task<int> Main(string[] args)
+    public static async Task Main(string[] args)
     {
+        int exitCode = 0;
+
         try
         {
             HostApplicationBuilder builder = Host.CreateApplicationBuilder(args);
@@ -24,12 +26,15 @@ public class Program
             Ioc.Default.ConfigureServices(host.Services);
 
             await host.RunAsync();
-            return 0;
         }
         catch (Exception ex)
         {
             Console.Error.WriteLine($"Application terminated unexpectedly: {ex}");
-            return 1;
+            exitCode = 1;
+        }
+        finally
+        {
+            Environment.Exit(exitCode);
         }
     }
 
