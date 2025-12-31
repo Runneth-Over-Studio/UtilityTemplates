@@ -20,7 +20,10 @@ public sealed class LintingTask : FrostingTask<BuildContext>
 
         context.Log.Information($"Formatting code...");
 
-        string[] solutionPaths = System.IO.Directory.GetFiles(context.SourceDirectory, "*.sln", System.IO.SearchOption.AllDirectories);
+        List<string> solutionPaths = [];
+        solutionPaths.AddRange(System.IO.Directory.GetFiles(context.SourceDirectory, "*.sln", System.IO.SearchOption.AllDirectories));
+        solutionPaths.AddRange(System.IO.Directory.GetFiles(context.SourceDirectory, "*.slnx", System.IO.SearchOption.AllDirectories));
+
 
         foreach (string solutionPath in solutionPaths)
         {

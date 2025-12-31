@@ -1,5 +1,4 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.DependencyInjection;
 using RunnethOverStudio.AppToolkit.Modules.ComponentModel;
 using System;
 using TuiApp.Business.Modules.Scheduling;
@@ -21,9 +20,8 @@ public partial class HomeViewModel : BaseViewModel
     [ObservableProperty]
     private string _licenseURL = AppInfo.LicenseURL;
 
-    public HomeViewModel()
+    public HomeViewModel(IRepeatingScheduler repeatingScheduler)
     {
-        IRepeatingScheduler repeatingScheduler = Ioc.Default.GetRequiredService<IRepeatingScheduler>();
         repeatingScheduler.InitiateScheduledJobsAsync(TimeSpan.FromSeconds(3), default);
     }
 }
