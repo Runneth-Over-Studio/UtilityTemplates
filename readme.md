@@ -20,7 +20,6 @@ There is a template for a desktop GUI application ([Avalonia](https://github.com
 
 This consistency allows developers to switch between GUI and TUI projects seamlessly, reusing skills and patterns across both.
 
-<!--
 ## Use
 - Install all templates with one command
 	```powershell
@@ -42,7 +41,6 @@ This consistency allows developers to switch between GUI and TUI projects seamle
   ```powershell
   dotnet new uninstall RunnethOverStudio.UtilityTemplates
   ```
--->
 
 ## Versioning
 This project uses [Semantic Versioning](https://semver.org/).
