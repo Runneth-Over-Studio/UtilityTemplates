@@ -28,7 +28,7 @@
 						</ListBox.Styles>
 						<ListBox.ItemTemplate>
 							<DataTemplate DataType="{x:Type m:MenuPaneItemTemplate}">
-								<StackPanel Spacing="17" Orientation="Horizontal">
+								<StackPanel Spacing="17.5" Orientation="Horizontal">
 									<i:MaterialIcon Kind="{Binding IconKey}" />
 									<TextBlock Text="{Binding Label}" />
 								</StackPanel>
