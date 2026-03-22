@@ -1,0 +1,5 @@
+﻿<Solution>
+  <Project Path="MobileApp/MobileApp.csproj" Id="EBFA8512-1EA5-4D8C-B4AC-AB5B48A6D568" />
+  <Project Path="MobileApp.Android/MobileApp.Android.csproj" Id="7AD1DAC8-7FBE-49D5-8614-7321233DB82E" />
+  <Project Path="MobileApp.iOS/MobileApp.iOS.csproj" Id="EBD9022F-BC83-4846-9A11-6F7F3772DC64" />
+</Solution>
