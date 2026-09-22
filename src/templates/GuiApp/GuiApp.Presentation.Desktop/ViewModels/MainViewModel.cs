@@ -13,7 +13,7 @@ public partial class MainViewModel : BaseViewModel
     private readonly SettingsViewModel _settingsViewModel;
 
     [ObservableProperty]
-    private BaseViewModel _currentPage;
+    private BaseViewModel _currentContent;
 
     [ObservableProperty]
     private bool _isPaneOpen;
@@ -42,7 +42,7 @@ public partial class MainViewModel : BaseViewModel
         IsPaneOpen = false;
         PaneItems = new ObservableCollection<MenuPaneItemTemplate>(paneItemTemplates);
         SelectedPaneItem = PaneItems[0];
-        CurrentPage = SelectedPaneItem.Content;
+        CurrentContent = SelectedPaneItem.Content;
         PageTitle = SelectedPaneItem.Label;
     }
 
@@ -56,7 +56,7 @@ public partial class MainViewModel : BaseViewModel
     private void Settings()
     {
         SelectedPaneItem = null;
-        CurrentPage = _settingsViewModel;
+        CurrentContent = _settingsViewModel;
         PageTitle = "Settings";
     }
 
@@ -67,7 +67,7 @@ public partial class MainViewModel : BaseViewModel
             return;
         }
 
-        CurrentPage = value.Content;
+        CurrentContent = value.Content;
         PageTitle = value.Label;
     }
 }
