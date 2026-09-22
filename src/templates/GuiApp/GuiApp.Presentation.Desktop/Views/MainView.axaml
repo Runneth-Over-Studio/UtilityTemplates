@@ -52,7 +52,7 @@
 			<Grid RowDefinitions="Auto,*">
 				<c:ViewHeaderControl Grid.Row="0" FriendlyPageName="{Binding PageTitle}" />
 				<Border Grid.Row="1" Background="{DynamicResource SystemListLowColor}">
-					<ContentControl CornerRadius="12,0,0,0" Padding="20" Content="{Binding CurrentPage}" Background="{DynamicResource SystemRegionColor}" />
+					<ContentControl CornerRadius="12,0,0,0" Padding="20" Content="{Binding CurrentContent}" Background="{DynamicResource SystemRegionColor}" />
 				</Border>
 			</Grid>
 		</SplitView.Content>
