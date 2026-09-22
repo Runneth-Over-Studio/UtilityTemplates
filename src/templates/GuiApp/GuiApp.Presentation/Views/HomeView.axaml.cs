@@ -1,8 +1,8 @@
 using Avalonia.Controls;
-using GuiApp.Presentation.Base.Extensions;
+using GuiApp.Presentation.Desktop.Base.Extensions;
 using CommunityToolkit.Mvvm.DependencyInjection;
 
-namespace GuiApp.Presentation.Views;
+namespace GuiApp.Presentation.Desktop.Views;
 
 public partial class HomeView : UserControl
 {
