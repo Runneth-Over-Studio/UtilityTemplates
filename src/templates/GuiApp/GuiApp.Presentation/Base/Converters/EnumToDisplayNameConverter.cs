@@ -8,7 +8,7 @@ using System.Globalization;
 using System.Linq;
 using System.Reflection;
 
-namespace GuiApp.Presentation.Base.Converters;
+namespace GuiApp.Presentation.Desktop.Base.Converters;
 
 /// <summary>
 /// Converts a collection of enum values to their display names using the <see cref="DisplayAttribute"/> if present.
