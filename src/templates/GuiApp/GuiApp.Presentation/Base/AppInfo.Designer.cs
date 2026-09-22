@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace GuiApp.Presentation.Base {
+namespace GuiApp.Presentation.Desktop.Base {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace GuiApp.Presentation.Base {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("GuiApp.Presentation.Base.AppInfo", typeof(AppInfo).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("GuiApp.Presentation.Desktop.Base.AppInfo", typeof(AppInfo).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
