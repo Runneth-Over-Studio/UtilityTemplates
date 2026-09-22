@@ -3,7 +3,7 @@ using Avalonia.Controls.Templates;
 using RunnethOverStudio.AppToolkit.Modules.ComponentModel;
 using System;
 
-namespace GuiApp.Presentation.Base;
+namespace GuiApp.Presentation.Desktop.Base;
 
 /// <summary>
 /// Provides a data template for resolving and instantiating views based on their corresponding view models
