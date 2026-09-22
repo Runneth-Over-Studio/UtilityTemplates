@@ -1,7 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using Serilog.Events;
 
-namespace GuiApp.Presentation.Models;
+namespace GuiApp.Presentation.Desktop.Models;
 
 public partial class ErrorLog : ObservableObject
 {
