@@ -3,12 +3,12 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="GuiApp.Presentation.Views.MainView"
+             x:Class="GuiApp.Presentation.Desktop.Views.MainView"
              x:DataType="vm:MainViewModel"
-			 xmlns:m="clr-namespace:GuiApp.Presentation.Models"
-			 xmlns:v="clr-namespace:GuiApp.Presentation.Views"
-			 xmlns:vm="clr-namespace:GuiApp.Presentation.ViewModels"
-			 xmlns:c="clr-namespace:GuiApp.Presentation.Base.Controls"
+			 xmlns:m="clr-namespace:GuiApp.Presentation.Desktop.Models"
+			 xmlns:v="clr-namespace:GuiApp.Presentation.Desktop.Views"
+			 xmlns:vm="clr-namespace:GuiApp.Presentation.Desktop.ViewModels"
+			 xmlns:c="clr-namespace:GuiApp.Presentation.Desktop.Base.Controls"
 			 xmlns:i="using:Material.Icons.Avalonia">
 
 	<SplitView IsPaneOpen="{Binding IsPaneOpen}" OpenPaneLength="200" DisplayMode="CompactInline" CompactPaneLength="45" PaneBackground="{DynamicResource SystemListLowColor}">
