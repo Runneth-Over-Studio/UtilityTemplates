@@ -1,7 +1,7 @@
-﻿using GuiApp.Presentation.Base;
+﻿using GuiApp.Presentation.Desktop.Base;
 using RunnethOverStudio.AppToolkit.Modules.ComponentModel;
 
-namespace GuiApp.Presentation.ViewModels;
+namespace GuiApp.Presentation.Desktop.ViewModels;
 
 public partial class SettingsViewModel : BaseViewModel
 {
