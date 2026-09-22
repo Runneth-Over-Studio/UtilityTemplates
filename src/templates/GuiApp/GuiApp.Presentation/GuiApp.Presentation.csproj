@@ -1,6 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <Description>Avalonia desktop presentation for GuiApp.</Description>
+    <AssemblyName>GuiApp.Presentation.Desktop</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
