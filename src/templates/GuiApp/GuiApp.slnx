@@ -1,5 +1,6 @@
 <Solution>
-  <Project Path="GuiApp.Data/GuiApp.Data.csproj" Id="9EB7F757-4671-4EE3-AF62-31C68C116B1F" />
-  <Project Path="GuiApp.Business/GuiApp.Business.csproj" Id="E339A5AA-6160-42A6-8D06-A746AF91C280" />
-  <Project Path="GuiApp.Presentation/GuiApp.Presentation.csproj" Id="5384FFC5-45DF-4424-8228-EA122189927B" />
+  <Project Path="GuiApp.Business/GuiApp.Business.csproj" />
+  <Project Path="GuiApp.Data/GuiApp.Data.csproj" />
+  <Project Path="GuiApp.Presentation.Desktop/GuiApp.Presentation.Desktop.csproj" />
+  <Project Path="GuiApp.DesktopApp/GuiApp.DesktopApp.csproj" />
 </Solution>
