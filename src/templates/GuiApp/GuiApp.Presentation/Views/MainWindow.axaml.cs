@@ -1,8 +1,8 @@
 using Avalonia.Controls;
-using GuiApp.Presentation.Base;
+using GuiApp.Presentation.Desktop.Base;
 using System.Runtime.InteropServices;
 
-namespace GuiApp.Presentation.Views;
+namespace GuiApp.Presentation.Desktop.Views;
 
 public partial class MainWindow : Window
 {
