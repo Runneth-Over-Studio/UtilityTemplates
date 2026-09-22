@@ -27,8 +27,8 @@
             "GuiApp.Data/Entities/FlatColor.cs",
             "GuiApp.Data/Resources/FlatColors.xml",
             "GuiApp.Data/Services/EmbeddedDataAccess.cs",
-            "GuiApp.Presentation.Desktop/ViewModels/SampleTools/**",
-            "GuiApp.Presentation.Desktop/Views/SampleTools/**"
+            "GuiApp.Presentation/ViewModels/SampleTools/**",
+            "GuiApp.Presentation/Views/SampleTools/**"
           ]
         }
       ]
@@ -42,7 +42,7 @@
     { "path": "GuiApp.slnx" },
     { "path": "GuiApp.Data/GuiApp.Data.csproj" },
     { "path": "GuiApp.Business/GuiApp.Business.csproj" },
-    { "path": "GuiApp.Presentation.Desktop/GuiApp.Presentation.Desktop.csproj" },
+    { "path": "GuiApp.Presentation/GuiApp.Presentation.Desktop.csproj" },
     { "path": "GuiApp.DesktopApp/GuiApp.DesktopApp.csproj" }
   ]
 }
