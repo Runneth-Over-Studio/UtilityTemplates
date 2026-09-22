@@ -5,7 +5,7 @@ using Serilog.Events;
 using System;
 using System.Globalization;
 
-namespace GuiApp.Presentation.Base.Converters;
+namespace GuiApp.Presentation.Desktop.Base.Converters;
 
 public class LogEventLevelToBrushConverter : IValueConverter
 {
