@@ -2,14 +2,14 @@ using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Media;
-using GuiApp.Presentation.Base.Extensions;
-using GuiApp.Presentation.ViewModels;
+using GuiApp.Presentation.Desktop.Base.Extensions;
+using GuiApp.Presentation.Desktop.ViewModels;
 using CommunityToolkit.Mvvm.DependencyInjection;
 using GuiApp.Business.Modules.Sample.DTOs;
 using System;
 using System.Linq;
 
-namespace GuiApp.Presentation.Views;
+namespace GuiApp.Presentation.Desktop.Views;
 
 public partial class FlatUIColorPickerView : UserControl
 {
