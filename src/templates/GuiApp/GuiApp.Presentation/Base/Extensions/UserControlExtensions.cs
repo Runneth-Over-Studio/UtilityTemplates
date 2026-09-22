@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Threading.Tasks;
 
-namespace GuiApp.Presentation.Base.Extensions;
+namespace GuiApp.Presentation.Desktop.Base.Extensions;
 
 internal static class UserControlExtensions
 {
