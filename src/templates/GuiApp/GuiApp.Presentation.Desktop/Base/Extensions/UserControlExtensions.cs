@@ -1,10 +1,8 @@
 using Avalonia.Controls;
 using Avalonia.Platform.Storage;
-using CommunityToolkit.Mvvm.DependencyInjection;
 using RunnethOverStudio.AppToolkit.Modules.ComponentModel;
 using System;
 using System.Collections.Generic;
-using System.Reflection;
 using System.Threading.Tasks;
 
 namespace GuiApp.Presentation.Desktop.Base.Extensions;
@@ -59,28 +57,6 @@ internal static class UserControlExtensions
         }
 
         return userSelectedFolder;
-    }
-
-    internal static void SetDataContext(this UserControl view, IServiceProvider? services)
-    {
-        if (view != null)
-        {
-            Assembly currentAssembly = Assembly.GetExecutingAssembly();
-            string viewType = view.GetType().ToString();
-
-            if (currentAssembly != null && !string.IsNullOrEmpty(viewType) && viewType.EndsWith("View") && viewType.Contains(".Views."))
-            {
-                string qualifiedViewModelPath = $"{viewType.Replace(".Views.", ".ViewModels.")}Model";
-                Type? viewModelType = currentAssembly.GetType(qualifiedViewModelPath);
-
-                if (viewModelType != null)
-                {
-                    view.DataContext = Design.IsDesignMode
-                        ? Activator.CreateInstance(viewModelType)
-                        : Ioc.Default.GetService(viewModelType);
-                }
-            }
-        }
     }
 
     internal static void LoadModelEvents(this UserControl view)
