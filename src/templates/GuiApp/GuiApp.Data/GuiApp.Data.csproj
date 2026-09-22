@@ -5,8 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Entities\" />
-    <Folder Include="Services\" />
+    <ProjectReference Include="..\GuiApp.Business\GuiApp.Business.csproj" />
   </ItemGroup>
 
 </Project>

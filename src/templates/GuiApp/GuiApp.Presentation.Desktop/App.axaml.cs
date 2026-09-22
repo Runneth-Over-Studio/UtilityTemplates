@@ -2,11 +2,11 @@ using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using CommunityToolkit.Mvvm.DependencyInjection;
-using GuiApp.Presentation.Desktop.Desktop.ViewModels;
-using GuiApp.Presentation.Desktop.Desktop.Views;
+using GuiApp.Presentation.Desktop.ViewModels;
+using GuiApp.Presentation.Desktop.Views;
 using System;
 
-namespace GuiApp.Presentation.Desktop.Desktop;
+namespace GuiApp.Presentation.Desktop;
 
 public partial class App : Application
 {

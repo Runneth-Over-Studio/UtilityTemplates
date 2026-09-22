@@ -9,40 +9,15 @@
   "preferNameDirectory": true,
   "shortName": "ros.guiapp",
   "sourceName": "GuiApp",
-  "symbols": {
-    "SampleBehaviors": {
-      "type": "parameter",
-      "datatype": "bool",
-      "defaultValue": "false",
-      "description": "Include sample application behaviors such as the GUID generator, color picker, and line sorter."
-    }
-  },
-  "sources": [
-    {
-      "modifiers": [
-        {
-          "condition": "(!SampleBehaviors)",
-          "exclude": [
-            "GuiApp.Business/Modules/Sample/**",
-            "GuiApp.Data/Entities/FlatColor.cs",
-            "GuiApp.Data/Resources/FlatColors.xml",
-            "GuiApp.Data/Services/EmbeddedDataAccess.cs",
-            "GuiApp.Presentation/ViewModels/SampleTools/**",
-            "GuiApp.Presentation/Views/SampleTools/**"
-          ]
-        }
-      ]
-    }
-  ],
   "tags": {
     "language": "C#",
     "type": "solution"
   },
   "primaryOutputs": [
     { "path": "GuiApp.slnx" },
+	{ "path": "GuiApp.Business/GuiApp.Business.csproj" },
     { "path": "GuiApp.Data/GuiApp.Data.csproj" },
-    { "path": "GuiApp.Business/GuiApp.Business.csproj" },
-    { "path": "GuiApp.Presentation/GuiApp.Presentation.csproj" },
+    { "path": "GuiApp.Presentation.Desktop/GuiApp.Presentation.Desktop.csproj" },
     { "path": "GuiApp.DesktopApp/GuiApp.DesktopApp.csproj" }
   ]
 }

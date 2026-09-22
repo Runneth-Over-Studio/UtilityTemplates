@@ -1,6 +1,6 @@
 <Solution>
   <Project Path="GuiApp.Business/GuiApp.Business.csproj" />
   <Project Path="GuiApp.Data/GuiApp.Data.csproj" />
-  <Project Path="GuiApp.Presentation/GuiApp.Presentation.csproj" />
+  <Project Path="GuiApp.Presentation.Desktop/GuiApp.Presentation.Desktop.csproj" />
   <Project Path="GuiApp.DesktopApp/GuiApp.DesktopApp.csproj" />
 </Solution>

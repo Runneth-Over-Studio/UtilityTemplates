@@ -6,6 +6,10 @@ namespace GuiApp.Presentation.Desktop;
 
 public static class DependencyInjection
 {
+    /// <summary>
+    /// Register internal presentation-tier services.
+    /// </summary>
+    /// <returns>A reference to this instance after the operation has completed.</returns>
     public static IServiceCollection RegisterInternalPresentationServices(this IServiceCollection services)
     {
         ArgumentNullException.ThrowIfNull(services);

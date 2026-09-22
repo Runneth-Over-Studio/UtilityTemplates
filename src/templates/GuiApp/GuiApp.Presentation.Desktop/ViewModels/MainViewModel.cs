@@ -1,4 +1,4 @@
-﻿using Avalonia.Controls;
+using Avalonia.Controls;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.DependencyInjection;
 using CommunityToolkit.Mvvm.Input;
@@ -30,9 +30,7 @@ public partial class MainViewModel : BaseViewModel
     [
         // Icon key ref: https://pictogrammers.com/library/mdi/
 
-        new MenuPaneItemTemplate(typeof(HomeViewModel), "Home", "Home"),
-        #if (SampleBehaviors)\n        new MenuPaneItemTemplate(typeof(SampleToolsViewModel), "Tools", "Sample Tools"),\n#endif
-        new MenuPaneItemTemplate(typeof(LogsViewModel), "ClipboardList", "Logs")
+        new MenuPaneItemTemplate(typeof(HomeViewModel), "Home", "Home")
     ];
 
     public MainViewModel()

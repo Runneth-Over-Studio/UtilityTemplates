@@ -1,12 +1,18 @@
 using GuiApp.Business;
 using GuiApp.Data;
 using GuiApp.Presentation.Desktop;
+using GuiApp.Presentation.Desktop.Base.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
+using RunnethOverStudio.AppToolkit.Core;
+using RunnethOverStudio.AppToolkit.Modules.Access;
 using RunnethOverStudio.AppToolkit.Modules.Messaging;
 using Serilog;
 using System;
 using System.IO;
+using System.Net;
+using System.Net.Http;
 
 namespace GuiApp.DesktopApp;
 
@@ -14,25 +20,78 @@ internal static class DependencyInjection
 {
     internal static IServiceCollection BuildServiceCollection()
     {
-        string applicationDataDirectory = Path.Combine(
-            Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-            "GuiApp");
-        Directory.CreateDirectory(applicationDataDirectory);
+        string applicationDataDirectory = GetApplicationDataDirectory();
 
-        Log.Logger = new LoggerConfiguration()
+        Serilog.Log.Logger = new LoggerConfiguration()
             .WriteTo.File(Path.Combine(applicationDataDirectory, "log.txt"), rollingInterval: RollingInterval.Day)
             .CreateLogger();
 
         IServiceCollection services = new ServiceCollection();
 
-        services.AddLogging(configure => configure.AddSerilog(Log.Logger))
-            .AddSingleton(sp => sp.GetRequiredService<ILoggerFactory>().CreateLogger(nameof(App)))
+        // Infrastructure
+        services.AddLogging(configure => configure.AddSerilog(Serilog.Log.Logger))
+            .AddSingleton((sp) => sp.GetRequiredService<ILoggerFactory>().CreateLogger(nameof(App)))
             .AddSingleton<IEventSystem, EventSystem>();
 
-        services.RegisterInternalDataServices();
-        services.RegisterInternalBusinessServices();
-        services.RegisterInternalPresentationServices();
+        // Data Access
+        services.RegisterInternalDataServices()
+            .ComposeDataAccessIntegrations();
+
+        // Business and external capabilities
+        services.RegisterInternalBusinessServices()
+            .ComposeBusinessIntegrations();
+
+        // Presentation
+        services.RegisterInternalPresentationServices()
+            .ComposePresentationIntegrations();
 
         return services;
+    }
+
+    private static IServiceCollection ComposeDataAccessIntegrations(this IServiceCollection services)
+    {
+        // File System Access
+        services.AddScoped<IFileSystemAccess, FileSystemAccess>();
+
+        // Web Access
+        services.AddHttpClient(HttpRequester.COMPRESSION_CLIENT_NAME, c => c.DefaultRequestHeaders.Add("Accept-Encoding", "deflate, gzip"))
+            .ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler
+            {
+                AllowAutoRedirect = false,
+                AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip
+            });
+        services.AddScoped<IHttpRequester, HttpRequester>();
+
+        return services;
+    }
+
+    private static IServiceCollection ComposeBusinessIntegrations(this IServiceCollection services)
+    {
+        // Add business-tier integrations here (e.g., external APIs, services, etc.)
+        // Example: services.AddScoped<IBusinessAPIContract, IntegrationsImplementation>();
+
+        return services;
+    }
+
+    private static IServiceCollection ComposePresentationIntegrations(this IServiceCollection services)
+    {
+        services.AddScoped<IAgnosticDispatcher, AvaloniaDispatcher>();
+
+        return services;
+    }
+
+    private static string GetApplicationDataDirectory()
+    {
+        using ILoggerFactory bootstrapLoggerFactory = LoggerFactory.Create(builder => builder.AddProvider(NullLoggerProvider.Instance));
+
+        FileSystemAccess fileSystemAccess = new(bootstrapLoggerFactory.CreateLogger<IFileSystemAccess>());
+        ProcessResult<string> appDirectoryPathResult = fileSystemAccess.GetOrCreateAppDirectoryPath();
+
+        if (appDirectoryPathResult.IsSuccessful)
+        {
+            return appDirectoryPathResult.Value;
+        }
+
+        throw new InvalidOperationException("Failed to get or create application data directory.", appDirectoryPathResult.Error);
     }
 }
