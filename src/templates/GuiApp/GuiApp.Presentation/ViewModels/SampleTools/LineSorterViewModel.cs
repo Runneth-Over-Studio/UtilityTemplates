@@ -11,7 +11,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace GuiApp.Presentation.ViewModels;
+namespace GuiApp.Presentation.Desktop.ViewModels;
 
 public partial class LineSorterViewModel : BaseViewModel
 {
