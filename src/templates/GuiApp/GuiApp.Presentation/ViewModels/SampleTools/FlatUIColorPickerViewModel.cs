@@ -3,7 +3,7 @@ using GuiApp.Business.Modules.Sample.DTOs;
 using RunnethOverStudio.AppToolkit.Modules.ComponentModel;
 using System.Collections.Generic;
 
-namespace GuiApp.Presentation.ViewModels;
+namespace GuiApp.Presentation.Desktop.ViewModels;
 
 public partial class FlatUIColorPickerViewModel : BaseViewModel
 {
