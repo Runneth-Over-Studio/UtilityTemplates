@@ -1,35 +1,31 @@
-﻿using GuiApp.Business.Modules.Sample.ApplicationServices;
-using GuiApp.Business.Modules.Sample.DomainServices;
-using GuiApp.Data;
-using FluentValidation;
+﻿using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using RunnethOverStudio.AppToolkit.Modules.Messaging;
+using System;
 using System.Reflection;
+#if (SampleBehaviors)
+using GuiApp.Business.Modules.Sample.ApplicationServices;
+using GuiApp.Business.Modules.Sample.DomainServices;
+#endif
 
 namespace GuiApp.Business;
 
 public static class DependencyInjection
 {
     /// <summary>
-    /// Adds business-tier services.
-    /// Dependent on <see cref="ILogger"/>.
+    /// Registers internal business-tier services.
     /// </summary>
-    /// <returns>A reference to this instance after the operation has completed.</returns>
-    public static IServiceCollection AddBusinessServices(this IServiceCollection services)
+    public static IServiceCollection RegisterInternalBusinessServices(this IServiceCollection services)
     {
-        // Infrastructure.
-        services.AddSingleton<IEventSystem, EventSystem>()
-            .AddDataAccessServices();
+        ArgumentNullException.ThrowIfNull(services);
 
-        // Internal business domain.
-        services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly())
-            .AddScoped<FlatUIColorPicker, FlatUIColorPicker>()
-            .AddScoped<LineSorter, LineSorter>()
-            .AddScoped<UUIDGenerator, UUIDGenerator>();
+        services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
-        // Orchestrated public-facing (application) services.
-        services.AddScoped<ISampleToolsService, SampleToolsService>();
+#if (SampleBehaviors)
+        services.AddScoped<FlatUIColorPicker>()
+            .AddScoped<LineSorter>()
+            .AddScoped<UUIDGenerator>()
+            .AddScoped<ISampleToolsService, SampleToolsService>();
+#endif
 
         return services;
     }
