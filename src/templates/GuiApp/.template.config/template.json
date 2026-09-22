@@ -14,9 +14,10 @@
     "type": "solution"
   },
   "primaryOutputs": [
-    { "path": "GuiApp.sln" },
-    { "path": "GuiApp.Data/GuiApp.Data.csproj" },
+    { "path": "GuiApp.slnx" },
     { "path": "GuiApp.Business/GuiApp.Business.csproj" },
-    { "path": "GuiApp.Presentation/GuiApp.Presentation.csproj" }
+    { "path": "GuiApp.Data/GuiApp.Data.csproj" },
+    { "path": "GuiApp.Presentation.Desktop/GuiApp.Presentation.Desktop.csproj" },
+    { "path": "GuiApp.DesktopApp/GuiApp.DesktopApp.csproj" }
   ]
 }
