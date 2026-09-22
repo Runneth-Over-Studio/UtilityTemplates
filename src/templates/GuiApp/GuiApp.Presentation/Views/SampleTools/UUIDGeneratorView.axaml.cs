@@ -2,11 +2,11 @@ using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Input.Platform;
 using Avalonia.Interactivity;
-using GuiApp.Presentation.Base.Extensions;
-using GuiApp.Presentation.ViewModels;
+using GuiApp.Presentation.Desktop.Base.Extensions;
+using GuiApp.Presentation.Desktop.ViewModels;
 using CommunityToolkit.Mvvm.DependencyInjection;
 
-namespace GuiApp.Presentation.Views;
+namespace GuiApp.Presentation.Desktop.Views;
 
 public partial class UUIDGeneratorView : UserControl
 {
