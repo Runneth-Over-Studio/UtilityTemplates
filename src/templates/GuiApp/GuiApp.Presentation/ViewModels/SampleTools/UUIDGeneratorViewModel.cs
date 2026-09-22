@@ -6,7 +6,7 @@ using RunnethOverStudio.AppToolkit.Modules.ComponentModel;
 using RunnethOverStudio.AppToolkit.Modules.Messaging;
 using System.Threading.Tasks;
 
-namespace GuiApp.Presentation.ViewModels;
+namespace GuiApp.Presentation.Desktop.ViewModels;
 
 public partial class UUIDGeneratorViewModel : BaseViewModel
 {
