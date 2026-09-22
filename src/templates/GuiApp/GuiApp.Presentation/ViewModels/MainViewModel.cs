@@ -2,13 +2,13 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.DependencyInjection;
 using CommunityToolkit.Mvvm.Input;
-using GuiApp.Presentation.Models;
+using GuiApp.Presentation.Desktop.Models;
 using RunnethOverStudio.AppToolkit.Modules.ComponentModel;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace GuiApp.Presentation.ViewModels;
+namespace GuiApp.Presentation.Desktop.ViewModels;
 
 public partial class MainViewModel : BaseViewModel
 {
@@ -31,7 +31,7 @@ public partial class MainViewModel : BaseViewModel
         // Icon key ref: https://pictogrammers.com/library/mdi/
 
         new MenuPaneItemTemplate(typeof(HomeViewModel), "Home", "Home"),
-        new MenuPaneItemTemplate(typeof(SampleToolsViewModel), "Tools", "Sample Tools"),
+        #if (SampleBehaviors)\n        new MenuPaneItemTemplate(typeof(SampleToolsViewModel), "Tools", "Sample Tools"),\n#endif
         new MenuPaneItemTemplate(typeof(LogsViewModel), "ClipboardList", "Logs")
     ];
 
