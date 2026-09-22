@@ -1,6 +1,4 @@
-using Avalonia.Controls;
 using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.DependencyInjection;
 using CommunityToolkit.Mvvm.Input;
 using GuiApp.Presentation.Desktop.Models;
 using RunnethOverStudio.AppToolkit.Modules.ComponentModel;
@@ -12,8 +10,10 @@ namespace GuiApp.Presentation.Desktop.ViewModels;
 
 public partial class MainViewModel : BaseViewModel
 {
+    private readonly SettingsViewModel _settingsViewModel;
+
     [ObservableProperty]
-    private BaseViewModel _currentPage = Ioc.Default.GetRequiredService<HomeViewModel>();
+    private BaseViewModel _currentPage;
 
     [ObservableProperty]
     private bool _isPaneOpen;
@@ -26,18 +26,23 @@ public partial class MainViewModel : BaseViewModel
 
     public ObservableCollection<MenuPaneItemTemplate> PaneItems { get; }
 
-    private readonly List<MenuPaneItemTemplate> _paneItemTemplates =
-    [
-        // Icon key ref: https://pictogrammers.com/library/mdi/
-
-        new MenuPaneItemTemplate(typeof(HomeViewModel), "Home", "Home")
-    ];
-
-    public MainViewModel()
+    public MainViewModel(HomeViewModel homeViewModel, SettingsViewModel settingsViewModel)
     {
+        ArgumentNullException.ThrowIfNull(homeViewModel);
+
+        _settingsViewModel = settingsViewModel ?? throw new ArgumentNullException(nameof(settingsViewModel));
+
+        List<MenuPaneItemTemplate> paneItemTemplates =
+        [
+            // Icon key ref: https://pictogrammers.com/library/mdi/
+
+            new MenuPaneItemTemplate(homeViewModel, "Home", "Home")
+        ];
+
         IsPaneOpen = false;
-        PaneItems = new ObservableCollection<MenuPaneItemTemplate>(_paneItemTemplates);
+        PaneItems = new ObservableCollection<MenuPaneItemTemplate>(paneItemTemplates);
         SelectedPaneItem = PaneItems[0];
+        CurrentPage = SelectedPaneItem.Content;
         PageTitle = SelectedPaneItem.Label;
     }
 
@@ -51,7 +56,7 @@ public partial class MainViewModel : BaseViewModel
     private void Settings()
     {
         SelectedPaneItem = null;
-        CurrentPage = Ioc.Default.GetRequiredService<SettingsViewModel>();
+        CurrentPage = _settingsViewModel;
         PageTitle = "Settings";
     }
 
@@ -62,16 +67,7 @@ public partial class MainViewModel : BaseViewModel
             return;
         }
 
-        object? newlySelectedViewModelObject = Design.IsDesignMode
-            ? Activator.CreateInstance(value.ModelType)
-            : Ioc.Default.GetService(value.ModelType);
-
-        if (newlySelectedViewModelObject is not BaseViewModel newlySelectedViewModel)
-        {
-            return;
-        }
-
-        CurrentPage = newlySelectedViewModel;
-        PageTitle = SelectedPaneItem?.Label ?? string.Empty;
+        CurrentPage = value.Content;
+        PageTitle = value.Label;
     }
 }

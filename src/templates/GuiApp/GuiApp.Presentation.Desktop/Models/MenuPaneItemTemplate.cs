@@ -1,5 +1,5 @@
-using System;
+using RunnethOverStudio.AppToolkit.Modules.ComponentModel;
 
 namespace GuiApp.Presentation.Desktop.Models;
 
-public record MenuPaneItemTemplate(Type ModelType, string IconKey, string Label);
+public sealed record MenuPaneItemTemplate(BaseViewModel Content, string IconKey, string Label);

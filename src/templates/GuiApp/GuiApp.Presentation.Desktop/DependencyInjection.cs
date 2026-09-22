@@ -14,6 +14,7 @@ public static class DependencyInjection
     {
         ArgumentNullException.ThrowIfNull(services);
 
+        // View Models
         foreach (Type assemblyType in typeof(App).Assembly.GetTypes())
         {
             if (assemblyType.IsClass
