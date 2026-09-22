@@ -1,9 +1,9 @@
 using Avalonia.Controls;
 using Avalonia.Interactivity;
-using GuiApp.Presentation.Base.Extensions;
+using GuiApp.Presentation.Desktop.Base.Extensions;
 using CommunityToolkit.Mvvm.DependencyInjection;
 
-namespace GuiApp.Presentation.Views;
+namespace GuiApp.Presentation.Desktop.Views;
 
 public partial class LineSorterView : UserControl
 {
