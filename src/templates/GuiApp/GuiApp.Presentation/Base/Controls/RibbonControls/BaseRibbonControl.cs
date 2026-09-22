@@ -7,7 +7,7 @@ using RunnethOverStudio.AppToolkit.Modules.ComponentModel;
 using System;
 using System.ComponentModel;
 
-namespace GuiApp.Presentation.Base.Controls.RibbonControls;
+namespace GuiApp.Presentation.Desktop.Base.Controls.RibbonControls;
 
 /// <summary>
 /// By ribbon content (belonging to a ViewHeaderControl) deriving from this class, 
