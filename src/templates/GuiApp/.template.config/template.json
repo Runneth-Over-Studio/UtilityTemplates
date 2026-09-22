@@ -42,7 +42,7 @@
     { "path": "GuiApp.slnx" },
     { "path": "GuiApp.Data/GuiApp.Data.csproj" },
     { "path": "GuiApp.Business/GuiApp.Business.csproj" },
-    { "path": "GuiApp.Presentation/GuiApp.Presentation.Desktop.csproj" },
+    { "path": "GuiApp.Presentation/GuiApp.Presentation.csproj" },
     { "path": "GuiApp.DesktopApp/GuiApp.DesktopApp.csproj" }
   ]
 }
