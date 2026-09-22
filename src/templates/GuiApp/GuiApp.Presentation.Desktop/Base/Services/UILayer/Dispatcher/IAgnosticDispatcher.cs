@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
 
 namespace GuiApp.Presentation.Desktop.Base.Services;

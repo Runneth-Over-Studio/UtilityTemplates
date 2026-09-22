@@ -1,4 +1,4 @@
-﻿using Avalonia.Controls;
+using Avalonia.Controls;
 using Avalonia.Controls.Templates;
 using RunnethOverStudio.AppToolkit.Modules.ComponentModel;
 using System;

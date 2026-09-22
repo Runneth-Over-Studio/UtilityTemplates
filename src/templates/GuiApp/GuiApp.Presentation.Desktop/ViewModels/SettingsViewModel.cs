@@ -1,4 +1,4 @@
-﻿using GuiApp.Presentation.Desktop.Base;
+using GuiApp.Presentation.Desktop.Base;
 using RunnethOverStudio.AppToolkit.Modules.ComponentModel;
 
 namespace GuiApp.Presentation.Desktop.ViewModels;

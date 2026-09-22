@@ -1,6 +1,6 @@
 using Avalonia.Controls;
-using GuiApp.Presentation.Desktop.Base.Extensions;
 using CommunityToolkit.Mvvm.DependencyInjection;
+using GuiApp.Presentation.Desktop.Base.Extensions;
 
 namespace GuiApp.Presentation.Desktop.Views;
 
