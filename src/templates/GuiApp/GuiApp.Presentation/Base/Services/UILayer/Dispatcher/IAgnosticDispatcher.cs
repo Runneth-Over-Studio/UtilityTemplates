@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace GuiApp.Presentation.Base.Services;
+namespace GuiApp.Presentation.Desktop.Base.Services;
 
 public interface IAgnosticDispatcher
 {
