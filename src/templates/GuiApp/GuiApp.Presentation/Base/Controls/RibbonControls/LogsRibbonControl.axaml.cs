@@ -1,8 +1,8 @@
-using GuiApp.Presentation.Desktop.Base.Controls.RibbonControls;
-using GuiApp.Presentation.Desktop.ViewModels;
+using GuiApp.Presentation.Desktop.Desktop.Base.Controls.RibbonControls;
+using GuiApp.Presentation.Desktop.Desktop.ViewModels;
 using CommunityToolkit.Mvvm.DependencyInjection;
 
-namespace GuiApp.Presentation.Desktop.Base.Controls;
+namespace GuiApp.Presentation.Desktop.Desktop.Base.Controls;
 
 public partial class LogsRibbonControl : BaseRibbonControl
 {
