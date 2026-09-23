@@ -19,7 +19,7 @@
 	<RepositoryType>git</RepositoryType>
 	<Description>A collection of C# project templates including GUI (Avalonia) and TUI applications.</Description>
 	<PackageTags>dotnet-new;templates;avalonia;gui;tui;desktop;terminal</PackageTags>
-	<PackageVersion>0.1.1</PackageVersion>
+	<PackageVersion>0.1.2</PackageVersion>
 	<PackageReleaseNotes>In-development / pre-alpha.</PackageReleaseNotes>
 
     <IncludeContentInPack>true</IncludeContentInPack>
