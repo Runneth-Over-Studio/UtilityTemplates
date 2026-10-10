@@ -1,7 +1,7 @@
 <Solution>
   <Project Path="GuiApp.Business/GuiApp.Business.csproj" />
   <Project Path="GuiApp.Data/GuiApp.Data.csproj" />
-  <Project Path="GuiApp.DesktopApp/GuiApp.DesktopApp.csproj" />
-  <Project Path="GuiApp.Integrations/GuiApp.Integrations.csproj" Id="e364b395-fed4-40a4-81fa-e0398a385066" />
+  <Project Path="GuiApp.Integrations/GuiApp.Integrations.csproj" />
   <Project Path="GuiApp.Presentation.Desktop/GuiApp.Presentation.Desktop.csproj" />
+  <Project Path="GuiApp.DesktopApp/GuiApp.DesktopApp.csproj" />
 </Solution>
