@@ -1,3 +1,4 @@
+using GuiApp.Presentation.Desktop.Settings;
 using Microsoft.Extensions.DependencyInjection;
 using RunnethOverStudio.AppToolkit.Modules.ComponentModel;
 using System;
@@ -10,9 +11,13 @@ public static class DependencyInjection
     /// Register internal presentation-tier services.
     /// </summary>
     /// <returns>A reference to this instance after the operation has completed.</returns>
-    public static IServiceCollection RegisterInternalPresentationServices(this IServiceCollection services)
+    public static IServiceCollection RegisterInternalPresentationServices(this IServiceCollection services, string applicationDataDirectory)
     {
         ArgumentNullException.ThrowIfNull(services);
+        ArgumentException.ThrowIfNullOrWhiteSpace(applicationDataDirectory);
+
+        services.AddSingleton<IDesktopSettings>(_ => new DesktopSettings(applicationDataDirectory));
+        services.AddSingleton<ThemeService>();
 
         // View Models
         foreach (Type assemblyType in typeof(App).Assembly.GetTypes())

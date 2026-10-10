@@ -2,6 +2,7 @@ using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using CommunityToolkit.Mvvm.DependencyInjection;
+using GuiApp.Presentation.Desktop.Settings;
 using GuiApp.Presentation.Desktop.ViewModels;
 using GuiApp.Presentation.Desktop.Views;
 using System;
@@ -20,6 +21,8 @@ public partial class App : Application
 
     public override void OnFrameworkInitializationCompleted()
     {
+        Ioc.Default.GetRequiredService<ThemeService>().Initialize();
+
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
             desktop.MainWindow = new MainWindow

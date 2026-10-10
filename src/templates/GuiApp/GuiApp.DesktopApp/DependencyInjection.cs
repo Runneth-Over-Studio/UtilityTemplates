@@ -33,7 +33,7 @@ internal static class DependencyInjection
         services.RegisterInternalDataServices()
             .RegisterInternalIntegrationsServices()
             .RegisterInternalBusinessServices()
-            .RegisterInternalPresentationServices();
+            .RegisterInternalPresentationServices(applicationDataDirectory);
 
         return services;
     }
