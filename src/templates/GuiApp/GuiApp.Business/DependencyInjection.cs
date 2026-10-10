@@ -1,7 +1,5 @@
-using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Reflection;
 
 namespace GuiApp.Business;
 
@@ -14,8 +12,6 @@ public static class DependencyInjection
     public static IServiceCollection RegisterInternalBusinessServices(this IServiceCollection services)
     {
         ArgumentNullException.ThrowIfNull(services);
-
-        services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly(), includeInternalTypes: true);
 
         return services;
     }

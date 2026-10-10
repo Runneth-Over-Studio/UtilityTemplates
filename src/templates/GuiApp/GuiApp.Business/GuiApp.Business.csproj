@@ -5,12 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="12.1.1" />
     <PackageReference Include="RunnethOverStudio.AppToolkit" Version="2.1.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Base\Extensions\" />
+    <Folder Include="Modules\" />
   </ItemGroup>
 
 </Project>

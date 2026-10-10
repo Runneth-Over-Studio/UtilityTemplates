@@ -4,6 +4,7 @@ using GuiApp.Presentation.Desktop;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using System;
+using System.Threading.Tasks;
 
 namespace GuiApp.DesktopApp;
 
@@ -13,7 +14,7 @@ internal class Program
     // SynchronizationContext-reliant code before AppMain is called: things aren't initialized
     // yet and stuff might break.
     [STAThread]
-    public static void Main(string[] args)
+    public static async Task Main(string[] args)
     {
         ServiceProvider? serviceProvider = null;
 
@@ -27,8 +28,12 @@ internal class Program
         }
         finally
         {
-            serviceProvider?.Dispose();
-            Log.CloseAndFlush();
+            if (serviceProvider is not null)
+            {
+                await serviceProvider.DisposeAsync().ConfigureAwait(false);
+            }
+
+            await Log.CloseAndFlushAsync().ConfigureAwait(false);
         }
     }
 

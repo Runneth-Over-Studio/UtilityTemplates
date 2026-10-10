@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <ApplicationManifest>app.manifest</ApplicationManifest>
@@ -17,6 +17,7 @@
   <ItemGroup>
     <ProjectReference Include="..\GuiApp.Business\GuiApp.Business.csproj" />
     <ProjectReference Include="..\GuiApp.Data\GuiApp.Data.csproj" />
+    <ProjectReference Include="..\GuiApp.Integrations\GuiApp.Integrations.csproj" />
     <ProjectReference Include="..\GuiApp.Presentation.Desktop\GuiApp.Presentation.Desktop.csproj" />
   </ItemGroup>
 </Project>
