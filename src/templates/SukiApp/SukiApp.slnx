@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="SukiApp.Business/SukiApp.Business.csproj" />
+  <Project Path="SukiApp.Data/SukiApp.Data.csproj" />
+  <Project Path="SukiApp.DesktopApp/SukiApp.DesktopApp.csproj" />
+  <Project Path="SukiApp.Integrations/SukiApp.Integrations.csproj" />
+  <Project Path="SukiApp.Presentation.Desktop/SukiApp.Presentation.Desktop.csproj" />
+</Solution>

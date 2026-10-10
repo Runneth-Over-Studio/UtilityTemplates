@@ -1,0 +1,11 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Description>Business tier of application.</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="RunnethOverStudio.AppToolkit" Version="2.1.0" />
+  </ItemGroup>
+
+</Project>
