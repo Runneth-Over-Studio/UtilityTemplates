@@ -11,6 +11,6 @@
 		x:Name="Win"
         Icon="/Base/Assets/transparent.ico">
 
-    <v:MainView Grid.Row="1" />
-    
+    <v:MainView />
+
 </Window>

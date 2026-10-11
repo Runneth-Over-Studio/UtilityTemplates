@@ -21,8 +21,6 @@
         <i:MaterialIconStyles />
         <StyleInclude Source="/Base/Styles/Colors.axaml" />
         <StyleInclude Source="/Base/Styles/UserControlStyles.axaml" />
-        <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml" />
-        <StyleInclude Source="avares://AvaloniaProgressRing/Styles/ProgressRing.xaml" />
     </Application.Styles>
 
     <Application.Resources>
