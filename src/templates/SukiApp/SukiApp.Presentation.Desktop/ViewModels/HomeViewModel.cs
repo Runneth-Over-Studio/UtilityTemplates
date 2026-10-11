@@ -1,5 +1,5 @@
 using Material.Icons;
-using SukiApp.Presentation.Desktop.Models;
+using SukiApp.Presentation.Desktop.Base;
 
 namespace SukiApp.Presentation.Desktop.ViewModels;
 

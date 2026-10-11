@@ -1,7 +1,7 @@
 using Avalonia.Collections;
 using CommunityToolkit.Mvvm.ComponentModel;
 using RunnethOverStudio.AppToolkit.Modules.ComponentModel;
-using SukiApp.Presentation.Desktop.Models;
+using SukiApp.Presentation.Desktop.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;

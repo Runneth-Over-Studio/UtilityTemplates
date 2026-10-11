@@ -1,7 +1,7 @@
 using Material.Icons;
 using RunnethOverStudio.AppToolkit.Modules.ComponentModel;
 
-namespace SukiApp.Presentation.Desktop.Models;
+namespace SukiApp.Presentation.Desktop.Base;
 
 public abstract class NavMenuPage(string displayName, MaterialIconKind icon, int index = 0) : BaseViewModel
 {

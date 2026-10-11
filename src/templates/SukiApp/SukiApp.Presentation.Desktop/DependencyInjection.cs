@@ -1,6 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using RunnethOverStudio.AppToolkit.Modules.ComponentModel;
-using SukiApp.Presentation.Desktop.Models;
+using SukiApp.Presentation.Desktop.Base;
 using SukiUI.Dialogs;
 using SukiUI.Toasts;
 using System;

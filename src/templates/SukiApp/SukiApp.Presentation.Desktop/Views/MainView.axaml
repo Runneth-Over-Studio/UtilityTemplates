@@ -24,7 +24,12 @@
 				</suki:SukiSideMenuItem>
 			</DataTemplate>
 		</suki:SukiSideMenu.ItemTemplate>
-		
-	</suki:SukiSideMenu>
 
+		<suki:SukiSideMenu.Styles>
+			<Style Selector="suki|SukiSideMenu /template/ Border#ContentBorder">
+				<Setter Property="Padding" Value="20" />
+			</Style>
+		</suki:SukiSideMenu.Styles>
+
+	</suki:SukiSideMenu>
 </UserControl>
