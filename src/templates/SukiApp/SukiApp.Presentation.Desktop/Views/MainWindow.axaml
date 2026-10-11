@@ -10,6 +10,7 @@
 				   xmlns:v="clr-namespace:SukiApp.Presentation.Desktop.Views"
 				   WindowStartupLocation="CenterScreen"
 				   CanFullScreen="True"
+				   BackgroundStyle="Gradient"
 				   Title="SukiApp"
 				   Icon="/Base/Assets/icon.ico">
 
