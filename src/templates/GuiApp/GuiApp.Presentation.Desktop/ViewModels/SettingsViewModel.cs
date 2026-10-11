@@ -51,7 +51,7 @@ public partial class SettingsViewModel : BaseViewModel
             _themeService.Set(preference);
             SetThemeSelection(preference);
         }
-        catch (Exception exception)
+        catch (Exception)
         {
             SetThemeSelection(_themeService.CurrentPreference);
         }
