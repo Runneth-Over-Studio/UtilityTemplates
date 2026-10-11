@@ -1,9 +1,11 @@
-using SukiApp.Presentation.Desktop.Base;
+using Material.Icons;
 using RunnethOverStudio.AppToolkit.Modules.ComponentModel;
+using SukiApp.Presentation.Desktop.Base;
+using SukiApp.Presentation.Desktop.Models;
 
 namespace SukiApp.Presentation.Desktop.ViewModels;
 
-public partial class SettingsViewModel : BaseViewModel
+public partial class SettingsViewModel : NavMenuPage
 {
     public string AppDisplayName { get; }
 
@@ -17,7 +19,7 @@ public partial class SettingsViewModel : BaseViewModel
 
     public string IssuesURL { get; }
 
-    public SettingsViewModel()
+    public SettingsViewModel() : base("Settings", MaterialIconKind.CogOutline, int.MaxValue)
     {
         AppDisplayName = AppInfo.AppDisplayName;
         ApplicationInfo = $"{AppInfo.AppDisplayName} - {AppInfo.Version}";

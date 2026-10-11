@@ -1,5 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using RunnethOverStudio.AppToolkit.Modules.ComponentModel;
+using SukiApp.Presentation.Desktop.Models;
 using SukiUI.Dialogs;
 using SukiUI.Toasts;
 using System;
@@ -19,11 +20,16 @@ public static class DependencyInjection
         // View Models
         foreach (Type assemblyType in typeof(App).Assembly.GetTypes())
         {
-            if (assemblyType.IsClass
-                && !assemblyType.IsAbstract
-                && typeof(BaseViewModel).IsAssignableFrom(assemblyType))
+            if (assemblyType.IsClass && !assemblyType.IsAbstract)
             {
-                services.AddTransient(assemblyType);
+                if (typeof(NavMenuPage).IsAssignableFrom(assemblyType))
+                {
+                    services.AddTransient(typeof(NavMenuPage), assemblyType);
+                }
+                else if (typeof(BaseViewModel).IsAssignableFrom(assemblyType))
+                {
+                    services.AddTransient(assemblyType);
+                }
             }
         }
 

@@ -1,73 +1,28 @@
+using Avalonia.Collections;
 using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
-using SukiApp.Presentation.Desktop.Models;
 using RunnethOverStudio.AppToolkit.Modules.ComponentModel;
+using SukiApp.Presentation.Desktop.Models;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace SukiApp.Presentation.Desktop.ViewModels;
 
 public partial class MainViewModel : BaseViewModel
 {
-    private readonly SettingsViewModel _settingsViewModel;
+    public IAvaloniaReadOnlyList<NavMenuPage> NavMenuPages { get; }
 
     [ObservableProperty]
-    private BaseViewModel _currentContent;
+    private BaseViewModel _activePage;
 
-    [ObservableProperty]
-    private bool _isPaneOpen;
-
-    [ObservableProperty]
-    private string _pageTitle;
-
-    [ObservableProperty]
-    private MenuPaneItemTemplate? _selectedPaneItem;
-
-    public ObservableCollection<MenuPaneItemTemplate> PaneItems { get; }
-
-    public MainViewModel(HomeViewModel homeViewModel, SettingsViewModel settingsViewModel)
+    public MainViewModel(IEnumerable<NavMenuPage> navMenuPages)
     {
-        ArgumentNullException.ThrowIfNull(homeViewModel);
-
-        _settingsViewModel = settingsViewModel ?? throw new ArgumentNullException(nameof(settingsViewModel));
-
-        List<MenuPaneItemTemplate> paneItemTemplates =
-        [
-            // Icon key ref: https://pictogrammers.com/library/mdi/
-
-            new MenuPaneItemTemplate(homeViewModel, "Home", "Home")
-        ];
-
-        IsPaneOpen = false;
-        PaneItems = new ObservableCollection<MenuPaneItemTemplate>(paneItemTemplates);
-        SelectedPaneItem = PaneItems[0];
-        CurrentContent = SelectedPaneItem.Content;
-        PageTitle = SelectedPaneItem.Label;
-    }
-
-    [RelayCommand]
-    private void TriggerPane()
-    {
-        IsPaneOpen = !IsPaneOpen;
-    }
-
-    [RelayCommand]
-    private void Settings()
-    {
-        SelectedPaneItem = null;
-        CurrentContent = _settingsViewModel;
-        PageTitle = "Settings";
-    }
-
-    partial void OnSelectedPaneItemChanged(MenuPaneItemTemplate? value)
-    {
-        if (value is null)
+        if (navMenuPages is null || !navMenuPages.Any())
         {
-            return;
+            throw new ArgumentException("At least one NavMenuPage must be provided.", nameof(navMenuPages));
         }
 
-        CurrentContent = value.Content;
-        PageTitle = value.Label;
+        NavMenuPages = new AvaloniaList<NavMenuPage>(navMenuPages.OrderBy(x => x.Index).ThenBy(x => x.DisplayName));
+        ActivePage = NavMenuPages[0];
     }
 }
