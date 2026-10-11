@@ -4,8 +4,8 @@
              xmlns:v="clr-namespace:SukiApp.Presentation.Desktop.Views"
              xmlns:vm="clr-namespace:SukiApp.Presentation.Desktop.ViewModels"
              x:Class="SukiApp.Presentation.Desktop.App"
+			 xmlns:sukiUi="clr-namespace:SukiUI;assembly=SukiUI"
              RequestedThemeVariant="Default">
-             <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
 
     <Application.DataTemplates>
         <DataTemplate DataType="{x:Type vm:HomeViewModel}">
@@ -17,10 +17,8 @@
     </Application.DataTemplates>
 
     <Application.Styles>
-        <FluentTheme />
+		<sukiUi:SukiTheme ThemeColor="Blue" />
         <i:MaterialIconStyles />
-        <StyleInclude Source="/Base/Styles/Colors.axaml" />
-        <StyleInclude Source="/Base/Styles/UserControlStyles.axaml" />
     </Application.Styles>
 
     <Application.Resources>

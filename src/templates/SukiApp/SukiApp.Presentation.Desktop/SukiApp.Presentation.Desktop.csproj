@@ -5,8 +5,6 @@
 
   <ItemGroup>
     <Folder Include="Base\Extensions\" />
-    <Folder Include="Base\Services\UILayer\Dispatcher\" />
-    <Folder Include="Base\Styles\" />
     <AvaloniaResource Include="Base\Assets\**" />
   </ItemGroup>
 
@@ -16,12 +14,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Base\Assets\Attributions.txt" />
     <Content Include="Base\Assets\Fonts\akashi-font\info.txt" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Avalonia.Themes.Fluent" Version="$(AvaloniaVersion)" />
     <PackageReference Include="Avalonia.Fonts.Inter" Version="$(AvaloniaVersion)" />
     <PackageReference Include="AvaloniaUI.DiagnosticsSupport" Version="2.2.3">
       <IncludeAssets Condition="'$(Configuration)' != 'Debug'">None</IncludeAssets>

@@ -8,6 +8,6 @@ public partial class HomeViewModel : BaseViewModel
 
     public HomeViewModel()
     {
-        WelcomeMessage = $"Welcome to Avalonia and SukiApp!";
+        WelcomeMessage = $"Welcome to Avalonia and SukiUI!";
     }
 }

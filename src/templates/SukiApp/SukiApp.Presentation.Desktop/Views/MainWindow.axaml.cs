@@ -1,14 +1,11 @@
-using Avalonia.Controls;
-using SukiApp.Presentation.Desktop.Base;
-using System.Runtime.InteropServices;
+using SukiUI.Controls;
 
 namespace SukiApp.Presentation.Desktop.Views;
 
-public partial class MainWindow : Window
+public partial class MainWindow : SukiWindow
 {
     public MainWindow()
     {
         InitializeComponent();
-        this.Title = RuntimeInformation.IsOSPlatform(OSPlatform.Linux) ? AppInfo.AppDisplayName : string.Empty;
     }
 }

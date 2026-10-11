@@ -1,5 +1,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using RunnethOverStudio.AppToolkit.Modules.ComponentModel;
+using SukiUI.Dialogs;
+using SukiUI.Toasts;
 using System;
 
 namespace SukiApp.Presentation.Desktop;
@@ -24,6 +26,9 @@ public static class DependencyInjection
                 services.AddTransient(assemblyType);
             }
         }
+
+        services.AddSingleton<ISukiToastManager, SukiToastManager>();
+        services.AddSingleton<ISukiDialogManager, SukiDialogManager>();
 
         return services;
     }
