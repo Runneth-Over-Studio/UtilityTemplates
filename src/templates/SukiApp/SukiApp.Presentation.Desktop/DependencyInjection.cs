@@ -17,7 +17,7 @@ public static class DependencyInjection
     {
         ArgumentNullException.ThrowIfNull(services);
 
-        // Convention-based registration uses runtime reflection. Revisit for trimming or Native AOT compatibility.\n        // View Models
+        // Convention-based registration uses runtime reflection for all view models. Revisit for trimming or Native AOT compatibility.
         foreach (Type assemblyType in typeof(App).Assembly.GetTypes())
         {
             if (assemblyType.IsClass && !assemblyType.IsAbstract)
